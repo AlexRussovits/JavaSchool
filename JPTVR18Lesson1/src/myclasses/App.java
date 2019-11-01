@@ -5,7 +5,8 @@
  */
 package myclasses;
 
-import java.util.Scanner;
+import java.util.Random; // Импортирует случайные числа
+import java.util.Scanner; // Импортирует сканер
 
 /**
  *
@@ -18,6 +19,16 @@ public class App {
         System.out.println("Напишите своё имя латинскими буквами: ");
         String myName = scanner.nextLine(); // Сканируем клавиатуру до нажатия клавиши Enter
         System.out.println("Hi, "+myName);
+        Random random = new Random();
+        int randomNumber = random.nextInt(5); // NextInt генерирует в диапозоне
+        System.out.println("Задумано число от 0 до 4. Угадай?"); // Игра
+        int userNumber = scanner.nextInt();
+        if (userNumber == randomNumber) {   
+            System.out.println("Ты угадал, молодец!");
+        }
+        else {
+            System.out.println("Не повезло : (, задумано число: "+randomNumber);
+        }
     }
     
 }
