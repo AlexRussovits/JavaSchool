@@ -20,19 +20,32 @@ public class App {
         String myName = scanner.nextLine(); // Сканируем клавиатуру до нажатия клавиши Enter
         System.out.println("Hi, "+myName);
         Random random = new Random();
-        do {
         int randomNumber = random.nextInt(5); // NextInt генерирует в диапозоне
+        int Scores  = 100;
+        do {
         System.out.println("Задумано число от 0 до 4. Угадай?"); // Игра
         int userNumber = scanner.nextInt();
+        
         if (userNumber == randomNumber) {   
             System.out.println("Ты угадал, молодец!");
-            break;
+            Scores += 10;
+            System.out.println("Твои очки: "+Scores);
         }
-        else {
+        /*else {
             System.out.println("Не повезло : (, задумано число: "+randomNumber);
         }
+        */
+        else if(userNumber != randomNumber) {
+            Scores -= 20;
+            System.out.println("Твои очки: "+Scores);
+        }
         
+        else if (Scores <= 0) {
+            System.out.println("Ты проиграл");
+            break;
+        }
           }while(true);
+        
     }
     
 }

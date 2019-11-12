@@ -7,6 +7,7 @@ package jptvr18lesson1;
 
 import java.util.Scanner;
 import myclasses.App;
+import myclasses.Task2;
 
 /**
  *
@@ -22,9 +23,20 @@ public class JPTVR18Lesson1 {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Выберите задачу:");
         System.out.println("1. Игра - угадайка");
+        System.out.println("2. Разборка трёхзначного числа");
+        System.out.println("Введите номер задачи: ");
+        int numberTask = scanner.nextInt();
+        switch (numberTask) {
+            case 1:    
+                App app = new App();
+                app.run();
+                break;
         
-        App app = new App();
-        app.run();
+            case 2:
+                Task2 task2 = new Task2();
+                task2.run();
+                break;
+        }
 
     }
 

@@ -20,14 +20,21 @@ public class Task2 {
         System.out.println("Для решения можно использовать арифметический оператор % - остаток от деления ");
         System.out.println("Решение:");
         System.out.println("Введите трёхзначное число: ");
-        int decimalNum = 0, hundredNum=0, sum = 0;
+        int decimalNum = 0, hundredNum=0, unitsNum=0 ,sum = 0;
         Scanner scanner = new Scanner(System.in);
         int number = scanner.nextInt();
         
-        
-        System.out.println("В этом числе: ");
-        System.out.println("Десятков: "+ decimalNum);
-        System.out.println("Сотен: "+ hundredNum);
-        System.out.println("Сумма чисел: "+ sum);
+        do{
+            unitsNum = number / 100;
+            decimalNum = number / 10 % 10;
+            hundredNum = number % 10;
+            sum = unitsNum + decimalNum + hundredNum;
+            System.out.println("В этом числе: ");
+            System.out.println("Единицы: "+ unitsNum);
+            System.out.println("Десятков: "+ decimalNum);
+            System.out.println("Сотен: "+ hundredNum);
+            System.out.println("Сумма чисел: "+ sum);
+            break;
+        } while(true);
     }
 }
