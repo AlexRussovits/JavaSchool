@@ -8,6 +8,7 @@ package jptvr18library;
 import Entity.Book;
 import Entity.History;
 import Entity.Reader;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import myclasses.BookProvider;
@@ -19,9 +20,11 @@ import myclasses.ReaderProvider;
  * @author pupil
  */
 public class App {
-   private Book book; 
-   private Reader reader;
-   private History history;
+   private ArrayList<Book> books = new ArrayList<>(); 
+   private ArrayList<Reader> readers = new ArrayList<>();
+   private ArrayList<History> histories = new ArrayList<>();
+   
+   
    public void run() {
        System.out.println("Консольная библиотека");
        OUTER:
@@ -33,6 +36,7 @@ public class App {
            System.out.println("4. Выдача книги");
            System.out.println("5. Возвращение книги");
            System.out.println("6. Список выданных книг");
+           System.out.println("7. Вывод читателей");
            System.out.println("Выберите задачу: ");
            Scanner scanner = new Scanner(System.in);
            int task = scanner.nextInt();
@@ -43,30 +47,42 @@ public class App {
            //Новая книга
                case 1:
                    BookProvider bookProvider = new BookProvider();
-                   book = bookProvider.createBook();
+                   books.add(bookProvider.createBook());
                    break;
            // Список книг
                case 2:
-                   System.out.println(book.toString());
+                   for (int i = 0; i < books.size(); i++) {
+                       System.out.println(books.get(i).toString());
+                       
+                   }
                    break;
            // Новый читатель
                case 3:
                    ReaderProvider readerProvider = new ReaderProvider();
-                   reader = readerProvider.createReader();
+                   readers.add(readerProvider.createReader());
                    break;
            // Выдача книги
                case 4:
                    HistoryProvider historyProvider = new HistoryProvider();
-                   history = historyProvider.createHistory(book,reader);
+                   histories.add(historyProvider.createHistory(books,readers));
                    break;
            // Возвращение книги
                case 5:
                    historyProvider = new HistoryProvider();
-                   history = historyProvider.returnBook(history);
+                   histories = historyProvider.returnBook(histories);
                    break;
                    
                case 6:
+                   History history = null;
+                   for (int i = 0; i < histories.size(); i++) {
                    System.out.printf("Читатель %s %s читает %s%n1",history.getReader().getName(), history.getReader().getSurname(),history.getBook().getName());
+                   }
+                   break;
+               case 7:
+                   for (int i = 0; i < readers.size(); i++) {
+                       System.out.println(readers.get(i).toString());
+                      
+                   }
                    break;
                    
                default:
