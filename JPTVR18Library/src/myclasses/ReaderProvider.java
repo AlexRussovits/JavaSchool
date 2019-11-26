@@ -14,7 +14,6 @@ import java.util.Scanner;
  */
 public class ReaderProvider {
 
-    private Reader reader;
     public Reader createReader() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("---Ввод читателя---");
@@ -31,6 +30,7 @@ public class ReaderProvider {
         scanner.nextLine();
         System.out.println("Телефон");
         String phone = scanner.nextLine();
+        Reader reader = new Reader(name,surname,day,month,year,phone);
         return reader;
             
     }

@@ -44,11 +44,11 @@ public class App {
                    break;
            // Список книг
                case 2:
-                   ReaderProvider readerProvider = new ReaderProvider();
-                   reader = readerProvider.createReader();
                    break;
            // Новый читатель
                case 3:
+                   ReaderProvider readerProvider = new ReaderProvider();
+                   reader = readerProvider.createReader();
                    break;
            // Выдача книги
                case 4:
