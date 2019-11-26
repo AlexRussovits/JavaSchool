@@ -17,42 +17,50 @@ public class Task1 {
     public void run (){
     Scanner scanner = new Scanner (System.in);
     int [][] Weather = new int [12][];           
-    Weather[0] =  new int[31];
-    Weather[1] =  new int[29];
-    Weather[2] =  new int[31];
-    Weather[3] =  new int[30];
-    Weather[4] =  new int[31];
-    Weather[5] =  new int[30];
-    Weather[6] =  new int[31];
-    Weather[7] =  new int[31];
-    Weather[8] =  new int[30];
-    Weather[9] =  new int[31];
-    Weather[10] =  new int[30];
-    Weather[11] =  new int[31];
+    Weather[0] =  new int[31]; // Январь
+    Weather[1] =  new int[29]; // Феварль
+    Weather[2] =  new int[31]; // Март
+    Weather[3] =  new int[30]; // Апрель
+    Weather[4] =  new int[31]; // Май
+    Weather[5] =  new int[30]; // Июнь
+    Weather[6] =  new int[31]; // Июль
+    Weather[7] =  new int[31]; // Август
+    Weather[8] =  new int[30]; // Сентябрь
+    Weather[9] =  new int[31]; // Октябрь 
+    Weather[10] =  new int[30]; // Ноябрь
+    Weather[11] =  new int[31]; // Декабрь
+    int max = 0,min = 25;
     Random rnd = new Random();
+        for (int i = 0; i < Weather.length; i++) {
+            for (int j = 0; j < Weather[i].length; j++) {
+                  Weather[i][j]=rnd.nextInt(max-min+1)-min;               
+            }
+            int[] is = Weather[i];
+            
+        }
     for (int i= 0;i<Weather.length;i++) {
         switch (i) {
             case 0:
-            case 1:
+            case 1:  // Зима
             case 11:
                 switch (Weather[i].length) {
                     case 30:
                         for(int j = 0; j < 30; j++) {
-                            Weather[i][j] = rnd.nextInt(16+(-12+1)+(-16));
+                            Weather[i][j] = rnd.nextInt(16-(-12+1)+(-12));
                         }   break;
                     case 31:
                         for (int j = 0; j < 31; j++) {
-                            Weather[i][j] = rnd.nextInt(16+(-12+1)+(-16));
+                            Weather[i][j] = rnd.nextInt(16-(-12+1)+(-12));
                         }   break;
                     case 29:
                         for (int j = 0; j < 29; j++) {
-                            Weather[i][j] = rnd.nextInt(16+(-13+1)+(-13));
+                            Weather[i][j] = rnd.nextInt(16-(-12+1)+(-12));
                         }   break;
                     default:
                         break;
                 }   break;
             case 2:
-            case 3:
+            case 3: // Весна
             case 4:
                 switch (Weather[i].length) {
                     case 30:
@@ -71,7 +79,7 @@ public class Task1 {
                         break;
                 }  break;
             case 5:
-            case 6:
+            case 6: // Лето
             case 7:
                 switch (Weather[i].length) {
                     case 30:
@@ -91,7 +99,7 @@ public class Task1 {
                 }  break;
             case 8:
             case 9:
-            case 10:
+            case 10: // Осень
                 switch (Weather[i].length) {
                     case 30:
                         for(int j = 0; j < 30; j++) {
@@ -112,6 +120,7 @@ public class Task1 {
                 break;
         }
       }
+    /*
         System.out.print("Введите месяц: ");
         int month = scanner.nextInt();
         System.out.println("Введите день: ");
@@ -142,9 +151,11 @@ public class Task1 {
                 }
             }
        }
-        
-        int min = 50;
-        int max = 0;
+       */
+    
+        /*int min = 50;
+        int max = 0;*/
+        /*
         for(int i = 0; i < Weather.length;i++) {
             if(i == month) {
                 switch (Weather[i].length) {
@@ -213,6 +224,7 @@ public class Task1 {
                 break;
         }
         }
+        */
    }
 }
 
