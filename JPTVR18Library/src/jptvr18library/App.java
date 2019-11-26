@@ -11,6 +11,7 @@ import Entity.Reader;
 import java.util.Date;
 import java.util.Scanner;
 import myclasses.BookProvider;
+import myclasses.HistoryProvider;
 import myclasses.ReaderProvider;
 
 /**
@@ -20,6 +21,7 @@ import myclasses.ReaderProvider;
 public class App {
    private Book book; 
    private Reader reader;
+   private History history;
    public void run() {
        System.out.println("Консольная библиотека");
        OUTER:
@@ -30,6 +32,7 @@ public class App {
            System.out.println("3. Новый читатель");
            System.out.println("4. Выдача книги");
            System.out.println("5. Возвращение книги");
+           System.out.println("6. Список выданных книг");
            System.out.println("Выберите задачу: ");
            Scanner scanner = new Scanner(System.in);
            int task = scanner.nextInt();
@@ -44,6 +47,7 @@ public class App {
                    break;
            // Список книг
                case 2:
+                   System.out.println(book.toString());
                    break;
            // Новый читатель
                case 3:
@@ -52,10 +56,19 @@ public class App {
                    break;
            // Выдача книги
                case 4:
+                   HistoryProvider historyProvider = new HistoryProvider();
+                   history = historyProvider.createHistory(book,reader);
                    break;
            // Возвращение книги
                case 5:
+                   historyProvider = new HistoryProvider();
+                   history = historyProvider.returnBook(history);
                    break;
+                   
+               case 6:
+                   System.out.printf("Читатель %s %s читает %s%n1",history.getReader().getName(), history.getReader().getSurname(),history.getBook().getName());
+                   break;
+                   
                default:
                    System.out.println("Данной команды не существует");
                    break;
