@@ -6,6 +6,7 @@
 package javacontrol1;
 
 import myclasses.Task1;
+import myclasses.Task2;
 
 /**
  *
@@ -20,6 +21,8 @@ public class JavaControl1 {
         // TODO code application logic here
         Task1 task1 = new Task1();
         task1.run();
+        Task2 task2 = new Task2();
+        task2.alphabet();
     }
     
 }
