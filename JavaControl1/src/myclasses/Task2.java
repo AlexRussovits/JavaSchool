@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class Task2 {
     public void alphabet(){
         Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
         
         HashSet<String> myHashSet = new HashSet();      
         myHashSet.add("а");
@@ -48,6 +49,10 @@ public class Task2 {
         myHashSet.add("ь");
         myHashSet.add("э");
         myHashSet.add("ю");
-        myHashSet.add("я");     
+        myHashSet.add("я");
+        
+        for (String i : myHashSet) {
+            
+        }
     }
 }
