@@ -29,7 +29,7 @@ public class Task1 {
     Weather[9] =  new int[31]; // Октябрь 
     Weather[10] =  new int[30]; // Ноябрь
     Weather[11] =  new int[31]; // Декабрь
-    int max = 0,min = 25;
+    int max = 0,min = 0;
     Random rnd = new Random();
         for (int i = 0; i < Weather.length; i++) {
             for (int j = 0; j < Weather[i].length; j++) {
@@ -45,16 +45,22 @@ public class Task1 {
             case 11:
                 switch (Weather[i].length) {
                     case 30:
-                        for(int j = 0; j < 30; j++) {
-                            Weather[i][j] = rnd.nextInt(16-(-12+1)+(-12));
+                            max = 14;
+                            min = -12;                         
+                        for(int j = 0; j < 30; j++) {        
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     case 31:
-                        for (int j = 0; j < 31; j++) {
-                            Weather[i][j] = rnd.nextInt(16-(-12+1)+(-12));
+                            max = 14;
+                            min = -12;                         
+                        for (int j = 0; j < 31; j++) {                           
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     case 29:
-                        for (int j = 0; j < 29; j++) {
-                            Weather[i][j] = rnd.nextInt(16-(-12+1)+(-12));
+                            max = 14;
+                            min = -12;                         
+                        for (int j = 0; j < 29; j++) {                           
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     default:
                         break;
@@ -64,16 +70,22 @@ public class Task1 {
             case 4:
                 switch (Weather[i].length) {
                     case 30:
-                        for(int j = 0; j < 30; j++) {
-                            Weather[i][j] = rnd.nextInt(22-(6+1)+ 6);
+                            max = 21;
+                            min = 5;                         
+                        for(int j = 0; j < 30; j++) {                           
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     case 31:
+                            max = 21;
+                            min = 5;                         
                         for (int j = 0; j < 31; j++) {
-                            Weather[i][j] = rnd.nextInt(22-(6+1)+ 6);
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     case 29:
-                        for (int j = 0; j < 29; j++) {
-                            Weather[i][j] = rnd.nextInt(22-(6+1)+ 6);
+                            max = 21;
+                            min = 5;                         
+                        for (int j = 0; j < 29; j++) {                           
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     default:
                         break;
@@ -83,16 +95,22 @@ public class Task1 {
             case 7:
                 switch (Weather[i].length) {
                     case 30:
-                        for(int j = 0; j < 30; j++) {
-                            Weather[i][j] = rnd.nextInt(25-(6+1)+ 6);
+                            max = 25;
+                            min = 11;  
+                        for(int j = 0; j < 30; j++) {                           
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     case 31:
+                            max = 25;
+                            min = 11;                          
                         for (int j = 0; j < 31; j++) {
-                            Weather[i][j] = rnd.nextInt(25-(6+1)+ 6);
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     case 29:
-                        for (int j = 0; j < 29; j++) {
-                            Weather[i][j] = rnd.nextInt(25-(6+1)+ 6);
+                            max = 25;
+                            min = 11;                          
+                        for (int j = 0; j < 29; j++) {                          
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     default:
                         break;
@@ -102,16 +120,22 @@ public class Task1 {
             case 10: // Осень
                 switch (Weather[i].length) {
                     case 30:
-                        for(int j = 0; j < 30; j++) {
-                            Weather[i][j] = rnd.nextInt(14-(0+1)+ 3);
+                            max = 12;
+                            min = 0;                         
+                        for(int j = 0; j < 30; j++) {     
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     case 31:
-                        for (int j = 0; j < 31; j++) {
-                            Weather[i][j] = rnd.nextInt(14-(0+1)+ 3);
+                            max = 12;
+                            min = 0;                         
+                        for (int j = 0; j < 31; j++) {                             
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     case 29:
-                        for (int j = 0; j < 29; j++) {
-                            Weather[i][j] = rnd.nextInt(14-(0+1)- 3);
+                            max = 12;
+                            min = 0;                         
+                        for (int j = 0; j < 29; j++) {                            
+                            Weather[i][j] = rnd.nextInt(max-min+1)-min;
                         }   break;
                     default:
                         break;
@@ -120,7 +144,7 @@ public class Task1 {
                 break;
         }
       }
-    /*
+    
         System.out.print("Введите месяц: ");
         int month = scanner.nextInt();
         System.out.println("Введите день: ");
@@ -151,7 +175,7 @@ public class Task1 {
                 }
             }
        }
-       */
+
     
         /*int min = 50;
         int max = 0;*/
