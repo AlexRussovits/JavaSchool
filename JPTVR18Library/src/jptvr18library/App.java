@@ -14,6 +14,7 @@ import java.util.Scanner;
 import myclasses.BookProvider;
 import myclasses.HistoryProvider;
 import myclasses.ReaderProvider;
+import storage.SaverToStorage;
 
 /**
  *
@@ -23,6 +24,11 @@ public class App {
    private ArrayList<Book> books = new ArrayList<>(); 
    private ArrayList<Reader> readers = new ArrayList<>();
    private ArrayList<History> histories = new ArrayList<>();
+
+    public App() {
+        SaverToStorage saverToStorage = new SaverToStorage();
+        this.books.addAll(saverToStorage.loadBooks());
+    }  
    
    
    public void run() {
@@ -48,6 +54,8 @@ public class App {
                case 1:
                    BookProvider bookProvider = new BookProvider();
                    books.add(bookProvider.createBook());
+                   SaverToStorage saverToStorage = new SaverToStorage();
+                   saverToStorage.saveBooks(books);
                    break;
            // Список книг
                case 2:

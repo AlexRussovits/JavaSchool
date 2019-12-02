@@ -5,6 +5,7 @@
  */
 package Entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,7 +13,7 @@ import java.util.Objects;
  *
  * @author pupil
  */
-public class History {
+public class History implements Serializable {
     private Date dateofissue;
     private Date returnDate;
     private Book book;
@@ -102,6 +103,10 @@ public class History {
             return false;
         }
         return true;
+    }
+
+    public void SetReturnDate(Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     
