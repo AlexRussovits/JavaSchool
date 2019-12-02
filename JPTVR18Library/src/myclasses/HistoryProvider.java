@@ -37,24 +37,30 @@ public class HistoryProvider {
         int indexReader = scanner.nextInt();
         Reader reader = readers.get(indexReader);
         Date date = new Date();       
+        History history = new History(new Date(), null, book, reader);
         
+        /*
+        II variant
         History history = new History();
-       
         history.setBook(book);
         history.setReader(reader);
         history.setDateofissue(new Date());
-        
+        */
         return history;
         
     }
 
-    public ArrayList<History> returnBook(ArrayList<History> histories) {
-        
-
-
-//histories.setReturnDate(new Date());
-        
-        return histories;
-        
+    public void returnBook(ArrayList<History> histories) {        
+        System.out.println("----Возврат книги----");
+        System.out.println("Список историй: ");
+        for (int i = 0; i < histories.size(); i++) {
+            History history = histories.get(i);
+            System.out.println(i+". Читатель "+history.getReader().getName()+ " "+history.getReader().getSurname()+ " читает книгу: "+ history.getBook().getName());
+        }
+        System.out.println("Выберите нужный номер истории");
+        int numHistory = scanner.nextInt();
+        History history = histories.get(numHistory);
+        history.SetReturnDate(new Date());
+                        
     }
 }

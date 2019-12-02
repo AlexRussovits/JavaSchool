@@ -38,35 +38,35 @@ public class Task1 {
                     }      
                 }else if(Weather[i].length == 29){
                     for(int j = 0; j < 29; j++){
-                        Weather[i][j] = rnd.nextInt(14 - (-12 + 1)) + (-12);
+                        Weather[i][j] = rnd.nextInt(14 - (-11 + 1)) + (-11);
                     } 
                 }else if(Weather[i].length == 31){
                     for(int j = 0; j < 31; j++){
-                        Weather[i][j] = rnd.nextInt(14 - (-12 + 1)) + (-12);
+                        Weather[i][j] = rnd.nextInt(14 - (-10 + 1)) + (-10);
                     } 
                 }
             }else if(i == 2 || i == 3 || i == 4){
                 if(Weather[i].length == 30){
                     for(int j = 0; j < 30; j++){
-                        Weather[i][j] = rnd.nextInt(21 - (5 + 1)) + 5;
+                        Weather[i][j] = rnd.nextInt(21 - (3 + 1)) + 3;
                     }      
                 }else if(Weather[i].length == 29){
                     for(int j = 0; j < 29; j++){
-                        Weather[i][j] = rnd.nextInt(21 - (5 + 1)) + 5;
+                        Weather[i][j] = rnd.nextInt(21 - (4 + 1)) + 4;
                     } 
                 }else if(Weather[i].length == 31){
                     for(int j = 0; j < 31; j++){
-                        Weather[i][j] = rnd.nextInt(21 - (5 + 1)) + 5;
+                        Weather[i][j] = rnd.nextInt(21 - (7 + 1)) + 7;
                     } 
                 } 
             }else if(i == 5 || i == 6 || i == 7){
                 if(Weather[i].length == 30){
                     for(int j = 0; j < 30; j++){
-                        Weather[i][j] = rnd.nextInt(25 - (11 + 1)) + 11;
+                        Weather[i][j] = rnd.nextInt(25 - (10 + 1)) + 10;
                     }      
                 }else if(Weather[i].length == 29){
                     for(int j = 0; j < 29; j++){
-                        Weather[i][j] = rnd.nextInt(25 - (11 + 1)) + 11;
+                        Weather[i][j] = rnd.nextInt(25 - (13 + 1)) + 13;
                     } 
                 }else if(Weather[i].length == 31){
                     for(int j = 0; j < 31; j++){

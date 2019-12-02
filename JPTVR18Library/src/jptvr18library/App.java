@@ -69,7 +69,7 @@ public class App {
            // Возвращение книги
                case 5:
                    historyProvider = new HistoryProvider();
-                   histories = historyProvider.returnBook(histories);
+                   historyProvider.returnBook(histories);
                    break;
                    
                case 6:
