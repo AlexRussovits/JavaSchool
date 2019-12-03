@@ -38,7 +38,7 @@ public class Task1 {
                     }      
                 }else if(Weather[i].length == 29){
                     for(int j = 0; j < 29; j++){
-                        Weather[i][j] = rnd.nextInt(14 - (-11 + 1)) + (-11);
+                        Weather[i][j] = rnd.nextInt(14 - (-11 + 1)) + (-11); // Диапазон температуры воздуха при выборе дня и месяца пользователем
                     } 
                 }else if(Weather[i].length == 31){
                     for(int j = 0; j < 31; j++){
@@ -130,7 +130,7 @@ public class Task1 {
                             max = Weather[i][j];
                         }
                         if(Weather[i][j] < min){
-                            min = Weather[i][j];
+                            min = Weather[i][j]; // Максимальная и минимальная температура воздуха за весь месяц , введённым пользователем
                         }
                     }      
                 }else if(Weather[i].length == 29){
@@ -166,7 +166,7 @@ public class Task1 {
                     avg = avg + Weather[i][j];
                 }   
                 avg = avg / 30;
-                System.out.println("Среднее ареф.: " + avg);
+                System.out.println("Среднее ареф.: " + avg); // Высчитывается среднее арифметическое температуры воздуха за весь месяц, введёным пользователем
             }else if(Weather[i].length == 29){
                 for(int j = 0; j < 29; j++){
                     avg = avg + Weather[i][j];
