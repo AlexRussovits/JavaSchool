@@ -10,6 +10,7 @@ import Entity.History;
 import Entity.Reader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Scanner;
 
 /**
@@ -19,10 +20,26 @@ import java.util.Scanner;
 public class HistoryProvider {
     private Scanner scanner = new Scanner(System.in);
     public History createHistory(ArrayList<Book> books,  ArrayList<Reader> readers) {
+        HashSet<Book> setBooks = new HashSet<>();
+        int counterPrintedBooks = 0;
         System.out.println("Список книг: ");
+        boolean flag = true;
+        
         for (int i = 0; i < books.size(); i++) {
-            Book book = books.get(i);
-            System.out.println(i + book.toString());
+            for(History history: histories) {
+                if(history.getBook().equals(books.get(i))
+                    && history.getReturnDate() == null) {
+                    
+                    flag = false;
+                    break;
+                }
+                   
+            }
+            if (flag) {
+                setBooks.add(books.get(i));
+            }
+            flag = true;
+            
         }
         System.out.println("Выберите книгу: ");
         int indexBook = scanner.nextInt();

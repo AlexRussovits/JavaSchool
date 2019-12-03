@@ -24,10 +24,12 @@ public class App {
    private ArrayList<Book> books = new ArrayList<>(); 
    private ArrayList<Reader> readers = new ArrayList<>();
    private ArrayList<History> histories = new ArrayList<>();
-
+    SaverToStorage saverToStorage;
     public App() {
-        SaverToStorage saverToStorage = new SaverToStorage();
+        this.saverToStorage = new SaverToStorage();
         this.books.addAll(saverToStorage.loadBooks());
+        this.readers.addAll(saverToStorage.loadReaders());
+        this.histories.addAll(saverToStorage.loadHistories());
     }  
    
    
@@ -54,7 +56,6 @@ public class App {
                case 1:
                    BookProvider bookProvider = new BookProvider();
                    books.add(bookProvider.createBook());
-                   SaverToStorage saverToStorage = new SaverToStorage();
                    saverToStorage.saveBooks(books);
                    break;
            // Список книг
@@ -68,17 +69,20 @@ public class App {
                case 3:
                    ReaderProvider readerProvider = new ReaderProvider();
                    readers.add(readerProvider.createReader());
+                   saverToStorage.saveReaders(readers);
                    break;
            // Выдача книги
                case 4:
                    HistoryProvider historyProvider = new HistoryProvider();
                    histories.add(historyProvider.createHistory(books,readers));
+                   saverToStorage.saveHistories(histories);
                    break;
            // Возвращение книги
                case 5:
-                   historyProvider = new HistoryProvider();
-                   historyProvider.returnBook(histories);
-                   break;
+                    historyProvider = new HistoryProvider();
+                    historyProvider.returnBook(histories);
+                    saverToStorage.saveHistories(histories);
+                    break;
                    
                case 6:
                    History history = null;

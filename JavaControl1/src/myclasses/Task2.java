@@ -32,10 +32,10 @@ public class Task2 {
             hashSet.add(charUser[i]);
         }
         int a = hashSet.size();
-        if(a<33){
-            System.out.println("Не весь алфавит собран");
-        }else{
+        if(a==33){
             System.out.println("Все 33 буквы");
+        }else{
+            System.out.println("Не весь алфавит собран");
         }
     }
 }
