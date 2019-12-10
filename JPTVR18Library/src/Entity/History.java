@@ -108,7 +108,4 @@ public class History implements Serializable {
     public void SetReturnDate(Date date) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-    
 }

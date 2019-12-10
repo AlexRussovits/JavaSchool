@@ -14,7 +14,7 @@ import java.util.Scanner;
 import myclasses.BookProvider;
 import myclasses.HistoryProvider;
 import myclasses.ReaderProvider;
-import storage.SaverToStorage;
+import storage.SaverToFile;
 
 /**
  *
@@ -24,12 +24,12 @@ public class App {
    private ArrayList<Book> books = new ArrayList<>(); 
    private ArrayList<Reader> readers = new ArrayList<>();
    private ArrayList<History> histories = new ArrayList<>();
-    SaverToStorage saverToStorage;
+    SaverToFile saverToFile;
     public App() {
-        this.saverToStorage = new SaverToStorage();
-        this.books.addAll(saverToStorage.loadBooks());
-        this.readers.addAll(saverToStorage.loadReaders());
-        this.histories.addAll(saverToStorage.loadHistories());
+        this.saverToFile = new SaverToFile();
+        this.books.addAll(saverToFile.loadBooks());
+        this.readers.addAll(saverToFile.loadReaders());
+        this.histories.addAll(saverToFile.loadHistories());
     }  
    
    
@@ -56,7 +56,7 @@ public class App {
                case 1:
                    BookProvider bookProvider = new BookProvider();
                    books.add(bookProvider.createBook());
-                   saverToStorage.saveBooks(books);
+                   saverToFile.saveBooks(books);
                    break;
            // Список книг
                case 2:
@@ -79,7 +79,7 @@ public class App {
                case 3:
                    ReaderProvider readerProvider = new ReaderProvider();
                    readers.add(readerProvider.createReader());
-                   saverToStorage.saveReaders(readers);
+                   saverToFile.saveReaders(readers);
                    break;
            // Выдача книги
                case 4:
@@ -87,14 +87,14 @@ public class App {
                    History history = historyProvider.createHistory(books,readers,histories);
                    if(history != null){
                         histories.add(history);
-                        saverToStorage.saveHistories(histories);
+                        saverToFile.saveHistories(histories);
                     }
                    break;
            // Возвращение книги
                case 5:
                     historyProvider = new HistoryProvider();
                     historyProvider.returnBook(histories);
-                    saverToStorage.saveHistories(histories);
+                    saverToFile.saveHistories(histories);
                     break;
                    
                case 6:
