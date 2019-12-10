@@ -19,12 +19,11 @@ import java.util.Scanner;
  */
 public class HistoryProvider {
     private Scanner scanner = new Scanner(System.in);
-    public History createHistory(ArrayList<Book> books,  ArrayList<Reader> readers) {
+    public History createHistory(ArrayList<Book> books,  ArrayList<Reader> readers, ArrayList<History> histories){
         HashSet<Book> setBooks = new HashSet<>();
         int counterPrintedBooks = 0;
         System.out.println("Список книг: ");
-        boolean flag = true;
-        
+        boolean flag = true;       
         for (int i = 0; i < books.size(); i++) {
             for(History history: histories) {
                 if(history.getBook().equals(books.get(i))
@@ -39,11 +38,22 @@ public class HistoryProvider {
                 setBooks.add(books.get(i));
             }
             flag = true;
-            
+            if(setBooks.contains(books.get(i))){
+                System.out.println(i+1+". "+books.get(i).toString());
+                counterPrintedBooks++;
+            }
+        }
+        if(counterPrintedBooks == 0){
+            System.out.println("Все книги выданы.");
+            return null;
         }
         System.out.println("Выберите книгу: ");
         int indexBook = scanner.nextInt();
-        Book book = books.get(indexBook);
+        Book book = books.get(indexBook-1);
+         for (int i = 0; i < readers.size(); i++) {
+            Reader reader = readers.get(i);
+            System.out.println(i+1+". " + reader.toString());
+        }
         
         System.out.println("Список читателей: ");
         for (int i = 0; i < readers.size(); i++) {
@@ -72,7 +82,8 @@ public class HistoryProvider {
         System.out.println("Список историй: ");
         for (int i = 0; i < histories.size(); i++) {
             History history = histories.get(i);
-            System.out.println(i+". Читатель "+history.getReader().getName()+ " "+history.getReader().getSurname()+ " читает книгу: "+ history.getBook().getName());
+            System.out.println(i+". Читатель "+history.getReader().getName()+ " "+history.getReader().getSurname()+ 
+                    " читает книгу: "+ history.getBook().getName());
         }
         System.out.println("Выберите нужный номер истории");
         int numHistory = scanner.nextInt();
