@@ -8,15 +8,30 @@ package Entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author pupil
  */
+@Entity
 public class History implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateofissue;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date returnDate;
+    @OneToOne
     private Book book;
+    @OneToOne
     private Reader reader;
     
     public History() 
@@ -29,6 +44,14 @@ public class History implements Serializable {
         this.returnDate = returnDate;
         this.book = book;
         this.reader = reader;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getDateofissue() {
