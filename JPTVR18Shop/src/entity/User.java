@@ -12,6 +12,7 @@ import java.util.Objects;
  * @author pupil
  */
 public class User {
+    
     private String fname;
     private String lname;
     private String address;
