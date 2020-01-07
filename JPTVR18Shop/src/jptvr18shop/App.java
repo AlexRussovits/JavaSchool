@@ -20,6 +20,7 @@ public class App {
             System.out.println("3. Покупка товара");
             System.out.println("4. Новый пользователь");
             System.out.println("5. Список пользователей");
+            System.out.println("6.Прибыль");
             System.out.println("Выберите задачу: ");
             repeat = true;
         }

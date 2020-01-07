@@ -31,8 +31,7 @@ public class HistoryProvider {
                     
                     flag = false;
                     break;
-                }
-                   
+                }                  
             }
             if (flag) {
                 setBooks.add(books.get(i));

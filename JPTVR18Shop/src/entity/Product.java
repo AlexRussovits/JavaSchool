@@ -5,14 +5,23 @@
  */
 package entity;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author pupil
  */
+@Entity
 
-public class Product {
+public class Product implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private int price;
     private int countofproduct;
@@ -20,10 +29,12 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, int price, int countofproduct) {
-        this.name = name;
-        this.price = price;
-        this.countofproduct = countofproduct;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -52,10 +63,11 @@ public class Product {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + Objects.hashCode(this.name);
-        hash = 97 * hash + this.price;
-        hash = 97 * hash + this.countofproduct;
+        int hash = 7;
+        hash = 11 * hash + Objects.hashCode(this.id);
+        hash = 11 * hash + Objects.hashCode(this.name);
+        hash = 11 * hash + this.price;
+        hash = 11 * hash + this.countofproduct;
         return hash;
     }
 
@@ -80,14 +92,15 @@ public class Product {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Product{" + "name=" + name + ", price=" + price + ", countofproduct=" + countofproduct + '}';
-    }
-        
-    
-}
+        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", countofproduct=" + countofproduct + '}';
+    }   
 
+}

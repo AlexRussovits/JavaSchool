@@ -5,22 +5,38 @@
  */
 package entity;
 
+import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author pupil
  */
-public class User {
-    
+
+@Entity
+public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String fname;
     private String lname;
     private String address;
     private String Email;
     private String phone;
-    private int money;
 
     public User() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFname() {
@@ -63,23 +79,16 @@ public class User {
         this.phone = phone;
     }
 
-    public int getMoney() {
-        return money;
-    }
-
-    public void setMoney(int money) {
-        this.money = money;
-    }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.fname);
-        hash = 29 * hash + Objects.hashCode(this.lname);
-        hash = 29 * hash + Objects.hashCode(this.address);
-        hash = 29 * hash + Objects.hashCode(this.Email);
-        hash = 29 * hash + Objects.hashCode(this.phone);
-        hash = 29 * hash + this.money;
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.fname);
+        hash = 37 * hash + Objects.hashCode(this.lname);
+        hash = 37 * hash + Objects.hashCode(this.address);
+        hash = 37 * hash + Objects.hashCode(this.Email);
+        hash = 37 * hash + Objects.hashCode(this.phone);
         return hash;
     }
 
@@ -95,9 +104,6 @@ public class User {
             return false;
         }
         final User other = (User) obj;
-        if (this.money != other.money) {
-            return false;
-        }
         if (!Objects.equals(this.fname, other.fname)) {
             return false;
         }
@@ -113,12 +119,15 @@ public class User {
         if (!Objects.equals(this.phone, other.phone)) {
             return false;
         }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "User{" + "fname=" + fname + ", lname=" + lname + ", address=" + address + ", Email=" + Email + ", phone=" + phone + ", money=" + money + '}';
+        return "User{" + "id=" + id + ", fname=" + fname + ", lname=" + lname + ", address=" + address + ", Email=" + Email + ", phone=" + phone + '}';
     }
     
     
