@@ -61,7 +61,7 @@ public class HistoryProvider {
         System.out.println("Выбор покупателя: ");
         int indexUser = scanner.nextInt();
         User user = users.get(indexUser);
-        History history = new History (product,user);         
+        History history = new History (product,user, countofproduct);         
         return history;
     }
 }

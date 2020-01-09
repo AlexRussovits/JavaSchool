@@ -29,7 +29,18 @@ public class User implements Serializable {
     private String phone;
 
     public User() {
+        
     }
+
+    public User(String fname, String lname, String address, String Email, String phone) {
+        this.fname = fname;
+        this.lname = lname;
+        this.address = address;
+        this.Email = Email;
+        this.phone = phone;
+    }
+    
+    
 
     public Long getId() {
         return id;
@@ -129,6 +140,7 @@ public class User implements Serializable {
     public String toString() {
         return "User{" + "id=" + id + ", fname=" + fname + ", lname=" + lname + ", address=" + address + ", Email=" + Email + ", phone=" + phone + '}';
     }
+    
     
     
 }

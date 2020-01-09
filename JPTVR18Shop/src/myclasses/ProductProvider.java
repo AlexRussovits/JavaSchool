@@ -20,11 +20,9 @@ public class ProductProvider {
         String name = scanner.nextLine();
         System.out.println("Цена товара: ");
         int price = scanner.nextInt();
-        scanner.nextLine();
-        System.out.println("Количество товара в магазине: ");
-        int countofproduct = scanner.nextInt();                        
-                
-        return null;
+        scanner.nextLine();                  
+        Product product = new Product(name,price);        
+        return product;
         
     }
 }

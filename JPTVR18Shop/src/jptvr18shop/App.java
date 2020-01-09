@@ -5,6 +5,9 @@
  */
 package jptvr18shop;
 
+import java.util.Scanner;
+import myclasses.UserProvider;
+
 /**
  *
  * @author pupil
@@ -22,7 +25,18 @@ public class App {
             System.out.println("5. Список пользователей");
             System.out.println("6.Прибыль");
             System.out.println("Выберите задачу: ");
-            repeat = true;
+            Scanner scanner = new Scanner(System.in);
+            int task = scanner.nextInt();
+            
+            switch(task) {
+                case 0:
+                    System.out.println("Выход из программы");
+                    break;
+                    
+                case 1:
+                    UserProvider userProvider = new UserProvider();
+                    
+            }
         }
         while(repeat);
     }

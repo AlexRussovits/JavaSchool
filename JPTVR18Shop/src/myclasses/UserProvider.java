@@ -26,6 +26,7 @@ public class UserProvider {
         String Email = scanner.nextLine();
         System.out.println("Телефон");
         String phone = scanner.nextLine();
-        return null;
+        User user = new User(fname,lname,address,Email,phone);
+        return user;
     }
 }

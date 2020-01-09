@@ -24,10 +24,16 @@ public class Product implements Serializable {
     private Long id;
     private String name;
     private int price;
-    private int countofproduct;
 
     public Product() {
+        
     }
+
+    public Product(String name, int price) {
+        this.name = name;
+        this.price = price;
+    }
+    
 
     public Long getId() {
         return id;
@@ -53,21 +59,12 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public int getCountofproduct() {
-        return countofproduct;
-    }
-
-    public void setCountofproduct(int countofproduct) {
-        this.countofproduct = countofproduct;
-    }
-
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 11 * hash + Objects.hashCode(this.id);
         hash = 11 * hash + Objects.hashCode(this.name);
         hash = 11 * hash + this.price;
-        hash = 11 * hash + this.countofproduct;
         return hash;
     }
 
@@ -86,9 +83,6 @@ public class Product implements Serializable {
         if (this.price != other.price) {
             return false;
         }
-        if (this.countofproduct != other.countofproduct) {
-            return false;
-        }
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
@@ -100,7 +94,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", countofproduct=" + countofproduct + '}';
+        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + '}';
     }   
 
 }
