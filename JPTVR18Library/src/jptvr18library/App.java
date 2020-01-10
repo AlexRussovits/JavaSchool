@@ -97,6 +97,7 @@ public class App {
                     saverToFile.saveHistories(histories);
                     break;
                    
+                    // Список читателей
                case 6:
                    history = null;
                     for (int i = 0; i < histories.size(); i++) {

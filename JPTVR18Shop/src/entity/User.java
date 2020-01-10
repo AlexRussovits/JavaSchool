@@ -39,8 +39,6 @@ public class User implements Serializable {
         this.Email = Email;
         this.phone = phone;
     }
-    
-    
 
     public Long getId() {
         return id;
@@ -90,16 +88,15 @@ public class User implements Serializable {
         this.phone = phone;
     }
 
-
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.fname);
-        hash = 37 * hash + Objects.hashCode(this.lname);
-        hash = 37 * hash + Objects.hashCode(this.address);
-        hash = 37 * hash + Objects.hashCode(this.Email);
-        hash = 37 * hash + Objects.hashCode(this.phone);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.fname);
+        hash = 97 * hash + Objects.hashCode(this.lname);
+        hash = 97 * hash + Objects.hashCode(this.address);
+        hash = 97 * hash + Objects.hashCode(this.Email);
+        hash = 97 * hash + Objects.hashCode(this.phone);
         return hash;
     }
 
@@ -140,6 +137,11 @@ public class User implements Serializable {
     public String toString() {
         return "User{" + "id=" + id + ", fname=" + fname + ", lname=" + lname + ", address=" + address + ", Email=" + Email + ", phone=" + phone + '}';
     }
+    
+    
+    
+
+    
     
     
     

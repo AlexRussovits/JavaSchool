@@ -29,14 +29,14 @@ public class SaverToFile {
         FileOutputStream fileOutputStream = null;
         ObjectOutputStream objectOutputStream = null; 
         try {
-            fileOutputStream = new FileOutputStream("Books.txt");
+            fileOutputStream = new FileOutputStream("Products.txt");
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
             objectOutputStream.writeObject(products);
             objectOutputStream.flush();
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(SaverToFile.class.getName()).log(Level.SEVERE, "Нет файла Books.txt", ex);
+            Logger.getLogger(SaverToFile.class.getName()).log(Level.SEVERE, "Нет файла Products.txt", ex);
         } catch (IOException ex) {
-            Logger.getLogger(SaverToFile.class.getName()).log(Level.SEVERE, "Ошибка записи Books.txt", ex);
+            Logger.getLogger(SaverToFile.class.getName()).log(Level.SEVERE, "Ошибка записи Products.txt", ex);
         } finally{
             if(objectOutputStream != null){
                 try {
