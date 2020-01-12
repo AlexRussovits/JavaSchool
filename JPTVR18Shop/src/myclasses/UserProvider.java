@@ -22,7 +22,7 @@ public class UserProvider {
         String lname = scanner.nextLine();
         System.out.println("Адрес: ");
         String address = scanner.nextLine();
-        System.out.println("Э-майл");
+        System.out.println("Э-майл: ");
         String Email = scanner.nextLine();
         System.out.println("Телефон");
         String phone = scanner.nextLine();

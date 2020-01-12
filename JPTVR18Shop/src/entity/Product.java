@@ -61,10 +61,9 @@ public class Product implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 11 * hash + Objects.hashCode(this.id);
-        hash = 11 * hash + Objects.hashCode(this.name);
-        hash = 11 * hash + this.price;
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.name);
+        hash = 37 * hash + this.price;
         return hash;
     }
 
@@ -86,15 +85,13 @@ public class Product implements Serializable {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + '}';
-    }   
+        return "Product{" + "name=" + name + ", price=" + price + '}';
+    }
 
+    
 }

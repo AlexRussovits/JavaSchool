@@ -10,6 +10,7 @@ import entity.Product;
 import entity.User;
 import java.util.ArrayList;
 import java.util.Scanner;
+import myclasses.HistoryProvider;
 import myclasses.ProductProvider;
 import myclasses.UserProvider;
 import storage.SaverToFile;
@@ -26,17 +27,15 @@ public class App {
     private ArrayList<Product> products = new ArrayList();
     private ArrayList<User> users = new ArrayList();
     private ArrayList<History> histories = new ArrayList();
-    SaverToFile saverToFile;
+    SaverToFile stf = new SaverToFile();
+    private int income = 0;
 
     public App() {
-        this.saverToFile = new SaverToFile();
-        this.products.addAll(saverToFile.loadProducts()); 
-        this.users.addAll(saverToFile.loadUsers());
-        this.histories.addAll(saverToFile.loadHistories());
+        this.products.addAll(this.stf.loadProducts()); 
+        this.users.addAll(this.stf.loadUsers());
+        this.histories.addAll(this.stf.loadHistories());
     }
-    
-    
-    
+     
     
     public void run () {
         System.out.println("Консольный магазин");
@@ -47,8 +46,9 @@ public class App {
             System.out.println("2. Новый пользователь");
             System.out.println("3. Список товаров");
             System.out.println("4. Список пользователей");
-            System.out.println("5. Покупка товара");
-            System.out.println("6.Прибыль");
+            System.out.println("5. Список историй");
+            System.out.println("6. Создать историю");
+            System.out.println("7. Прибыль");
             System.out.println("Выберите задачу: ");
             Scanner scanner = new Scanner(System.in);
             int task = scanner.nextInt();
@@ -56,32 +56,54 @@ public class App {
             switch(task) {
                 case 0:
                     System.out.println("Выход из программы");
+                    repeat = false;
                     break;
                     
                     // Новый товар
                 case 1:
                     ProductProvider productProvider = new ProductProvider();
                     products.add(productProvider.createProduct());
-                    saverToFile.saveProducts(products);
+                    this.stf.saveProducts(this.products);
                     break; 
                     
                 // Новый пользователь
                 case 2:
                     UserProvider userProvider = new UserProvider();
                     users.add(userProvider.createUser());
-                    saverToFile.saveUsers(users);
-                    
-                 // Список товаров   
+                    this.stf.saveUsers(this.users);
+                    break;
+                // Список товаров   
                 case 3:
-                    
-                 // Список пользователей   
+                    for (Product product : products) {
+                        System.out.println(product.toString());
+                    }
+                    break;
+                // Список пользователей   
                 case 4:
-                    
-                  // Покупка товара  
+                    for (User user : users) {
+                        System.out.println(user.toString());
+                    }
+                    break;
+                // Список историй
                 case 5:
-                    
-                  // Прибыль  
+                    for(History history: histories){
+                        System.out.println(history.toString());
+                    }
+                    break;
+                // Создать историю  
                 case 6:
+                    HistoryProvider historyProvider = new HistoryProvider();
+                    histories.add(historyProvider.createHistory(this.products, this.users, this.histories));
+                    this.stf.saveHistories(this.histories);
+                    break;
+                // Прибыль
+                case 7:
+                    for (History history : histories) {
+                        int price = history.getProduct().getPrice();
+                        int countP = history.getCountofproduct();
+                        this.income = price * countP;
+                    }
+                    System.out.println("Прибыль магазина: "+ this.income);
             }
             
         }

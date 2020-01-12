@@ -90,9 +90,7 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.id);
-        hash = 97 * hash + Objects.hashCode(this.fname);
+        int hash = 3;
         hash = 97 * hash + Objects.hashCode(this.lname);
         hash = 97 * hash + Objects.hashCode(this.address);
         hash = 97 * hash + Objects.hashCode(this.Email);
@@ -127,22 +125,13 @@ public class User implements Serializable {
         if (!Objects.equals(this.phone, other.phone)) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", fname=" + fname + ", lname=" + lname + ", address=" + address + ", Email=" + Email + ", phone=" + phone + '}';
+        return "User{" + "fname=" + fname + ", lname=" + lname + ", address=" + address + ", Email=" + Email + ", phone=" + phone + '}';
     }
-    
-    
-    
 
-    
-    
-    
     
 }

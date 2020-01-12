@@ -74,9 +74,9 @@ public class SaverToFile {
         return products;
     }
     
-        public void saveUsers(ArrayList<User> users) {
+    public void saveUsers(ArrayList<User> users) {
         FileOutputStream fileOutputStream = null;
-        ObjectOutputStream objectOutputStream = null;
+        ObjectOutputStream objectOutputStream = null; 
         try {
             fileOutputStream = new FileOutputStream("Users.txt");
             objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -86,7 +86,7 @@ public class SaverToFile {
             Logger.getLogger(SaverToFile.class.getName()).log(Level.SEVERE, "Нет файла Users.txt", ex);
         } catch (IOException ex) {
             Logger.getLogger(SaverToFile.class.getName()).log(Level.SEVERE, "Ошибка записи Users.txt", ex);
-        }finally{
+        } finally{
             if(objectOutputStream != null){
                 try {
                     objectOutputStream.close();
@@ -110,7 +110,7 @@ public class SaverToFile {
         FileInputStream fileInputStream = null;
         ObjectInputStream objectInputStream = null;
         try {
-            fileInputStream = new FileInputStream("Readers.txt");
+            fileInputStream = new FileInputStream("Users.txt");
             objectInputStream = new ObjectInputStream(fileInputStream);
             users = (ArrayList<User>) objectInputStream.readObject();
         } catch (FileNotFoundException ex) {

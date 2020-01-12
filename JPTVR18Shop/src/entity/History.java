@@ -70,10 +70,9 @@ public class History implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 11 * hash + Objects.hashCode(this.id);
-        hash = 11 * hash + Objects.hashCode(this.product);
-        hash = 11 * hash + Objects.hashCode(this.user);
-        hash = 11 * hash + this.countofproduct;
+        hash = 43 * hash + Objects.hashCode(this.product);
+        hash = 43 * hash + Objects.hashCode(this.user);
+        hash = 43 * hash + this.countofproduct;
         return hash;
     }
 
@@ -92,9 +91,6 @@ public class History implements Serializable {
         if (this.countofproduct != other.countofproduct) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
         if (!Objects.equals(this.product, other.product)) {
             return false;
         }
@@ -106,10 +102,9 @@ public class History implements Serializable {
 
     @Override
     public String toString() {
-        return "History{" + "id=" + id + ", product=" + product + ", user=" + user + ", countofproduct=" + countofproduct + '}';
+        return "History{" + "product=" + product + ", user=" + user + ", countofproduct=" + countofproduct + '}';
     }
-    
-    
+  
     
     
 }
