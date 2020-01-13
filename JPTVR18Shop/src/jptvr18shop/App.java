@@ -13,6 +13,8 @@ import java.util.Scanner;
 import myclasses.HistoryProvider;
 import myclasses.ProductProvider;
 import myclasses.UserProvider;
+import storage.Saveble;
+import storage.SaverToBase;
 import storage.SaverToFile;
 
 /**
@@ -27,13 +29,15 @@ public class App {
     private ArrayList<Product> products = new ArrayList();
     private ArrayList<User> users = new ArrayList();
     private ArrayList<History> histories = new ArrayList();
-    SaverToFile stf = new SaverToFile();
+    Saveble saveble;
     private int income = 0;
 
     public App() {
-        this.products.addAll(this.stf.loadProducts()); 
-        this.users.addAll(this.stf.loadUsers());
-        this.histories.addAll(this.stf.loadHistories());
+        //this.saveble = new SaverToFile();
+        this.saveble = new SaverToBase();
+        this.products.addAll(this.saveble.loadProducts()); 
+        this.users.addAll(this.saveble.loadUsers());
+        this.histories.addAll(this.saveble.loadHistories());
     }
      
     
@@ -63,14 +67,14 @@ public class App {
                 case 1:
                     ProductProvider productProvider = new ProductProvider();
                     products.add(productProvider.createProduct());
-                    this.stf.saveProducts(this.products);
+                    this.saveble.saveProducts(this.products);
                     break; 
                     
                 // Новый пользователь
                 case 2:
                     UserProvider userProvider = new UserProvider();
                     users.add(userProvider.createUser());
-                    this.stf.saveUsers(this.users);
+                    this.saveble.saveUsers(this.users);
                     break;
                 // Список товаров   
                 case 3:
@@ -94,7 +98,7 @@ public class App {
                 case 6:
                     HistoryProvider historyProvider = new HistoryProvider();
                     histories.add(historyProvider.createHistory(this.products, this.users, this.histories));
-                    this.stf.saveHistories(this.histories);
+                    this.saveble.saveHistories(this.histories);
                     break;
                 // Прибыль
                 case 7:
