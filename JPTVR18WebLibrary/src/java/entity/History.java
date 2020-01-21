@@ -8,43 +8,65 @@ package entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
- * @author pupil
+ * @author Melnikov
  */
-public class History implements Serializable {
-    private Date dateofissue;
-    private Date returnDate;
+@Entity
+public class History implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date giveOfDate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date returnOfDate;
+    @OneToOne
     private Book book;
+    @OneToOne
     private Reader reader;
-    
-    public History() 
-    {
-        
+
+    public History() {
     }
 
-    public History(Date dateofissue, Date returnDate, Book book, Reader reader) {
-        this.dateofissue = dateofissue;
-        this.returnDate = returnDate;
+    public History(Date giveOfDate, Date returnOfDate, Book book, Reader reader) {
+        this.giveOfDate = giveOfDate;
+        this.returnOfDate = returnOfDate;
         this.book = book;
         this.reader = reader;
     }
 
-    public Date getDateofissue() {
-        return dateofissue;
+    
+    public Long getId() {
+        return id;
     }
 
-    public void setDateofissue(Date dateofissue) {
-        this.dateofissue = dateofissue;
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public Date getGiveOfDate() {
+        return giveOfDate;
     }
 
-    public Date getReturnDate() {
-        return returnDate;
+    public void setGiveOfDate(Date giveOfDate) {
+        this.giveOfDate = giveOfDate;
     }
 
-    public void setReturnDate(Date returnDate) {
-        this.returnDate = returnDate;
+    public Date getReturnOfDate() {
+        return returnOfDate;
+    }
+
+    public void setReturnOfDate(Date returnOfDate) {
+        this.returnOfDate = returnOfDate;
     }
 
     public Book getBook() {
@@ -65,16 +87,23 @@ public class History implements Serializable {
 
     @Override
     public String toString() {
-        return "History{" + "dateofissue=" + dateofissue + ", returnDate=" + returnDate + ", book=" + book.getName() + ", "+ book.getAuthor() + ", reader=" + reader.getName() + ", " + reader.getSurname() +  '}';
+        return "History{" 
+                + "giveOfDate=" + giveOfDate 
+                + ", returnOfDate=" + returnOfDate 
+                + ", book=" + book.getName()
+                + ", " + book.getAuthor()
+                + ", reader=" + reader.getName()
+                + " " + reader.getSurname()
+                + '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 23 * hash + Objects.hashCode(this.dateofissue);
-        hash = 23 * hash + Objects.hashCode(this.returnDate);
-        hash = 23 * hash + Objects.hashCode(this.book);
-        hash = 23 * hash + Objects.hashCode(this.reader);
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.giveOfDate);
+        hash = 59 * hash + Objects.hashCode(this.returnOfDate);
+        hash = 59 * hash + Objects.hashCode(this.book);
+        hash = 59 * hash + Objects.hashCode(this.reader);
         return hash;
     }
 
@@ -90,10 +119,10 @@ public class History implements Serializable {
             return false;
         }
         final History other = (History) obj;
-        if (!Objects.equals(this.dateofissue, other.dateofissue)) {
+        if (!Objects.equals(this.giveOfDate, other.giveOfDate)) {
             return false;
         }
-        if (!Objects.equals(this.returnDate, other.returnDate)) {
+        if (!Objects.equals(this.returnOfDate, other.returnOfDate)) {
             return false;
         }
         if (!Objects.equals(this.book, other.book)) {
@@ -105,8 +134,5 @@ public class History implements Serializable {
         return true;
     }
 
-    public void SetReturnDate(Date date) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 }
-

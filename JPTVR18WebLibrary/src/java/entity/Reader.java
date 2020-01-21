@@ -7,22 +7,28 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
- * @author pupil
+ * @author Melnikov
  */
-public class Reader implements Serializable {
+@Entity
+public class Reader implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String surname;
     private int day;
     private int month;
     private int year;
     private String phone;
-    
-    public Reader() 
-    {
-    
+
+    public Reader() {
     }
 
     public Reader(String name, String surname, int day, int month, int year, String phone) {
@@ -34,6 +40,14 @@ public class Reader implements Serializable {
         this.phone = phone;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public String getName() {
         return name;
     }
@@ -90,12 +104,12 @@ public class Reader implements Serializable {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 31 * hash + Objects.hashCode(this.name);
-        hash = 31 * hash + Objects.hashCode(this.surname);
-        hash = 31 * hash + this.day;
-        hash = 31 * hash + this.month;
-        hash = 31 * hash + this.year;
-        hash = 31 * hash + Objects.hashCode(this.phone);
+        hash = 59 * hash + Objects.hashCode(this.name);
+        hash = 59 * hash + Objects.hashCode(this.surname);
+        hash = 59 * hash + this.day;
+        hash = 59 * hash + this.month;
+        hash = 59 * hash + this.year;
+        hash = 59 * hash + Objects.hashCode(this.phone);
         return hash;
     }
 
@@ -130,5 +144,7 @@ public class Reader implements Serializable {
             return false;
         }
         return true;
-    }       
+    }
+
+    
 }

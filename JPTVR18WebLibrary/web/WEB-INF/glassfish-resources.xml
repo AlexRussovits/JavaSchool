@@ -7,8 +7,8 @@
         <property name="databaseName" value="jptvr18weblibrary"/>
         <property name="User" value="jptvr18weblibrary"/>
         <property name="Password" value="jptvr18weblibrary"/>
-        <property name="URL" value="jdbc:mysql://localhost:3306/jptvr18weblibrary?zeroDateTimeBehavior=convertToNull&amp;amp;useUnicode=true&amp;amp;characterEncoding=utf8"/>
+        <property name="URL" value="jdbc:mysql://localhost:3306/jptvr18weblibrary?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf8"/>
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="java:app/jdbcjptvr18weblibrary" object-type="user" pool-name="mysql_jptvr18weblibrary_jptvr18weblibraryPool"/>
+    <jdbc-resource enabled="true" jndi-name="java:app/jdbc/jptvr18weblibraryDS" object-type="user" pool-name="mysql_jptvr18weblibrary_jptvr18weblibraryPool"/>
 </resources>

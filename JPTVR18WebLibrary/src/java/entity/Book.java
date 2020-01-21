@@ -7,20 +7,26 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
- * @author pupil
+ * @author Melnikov
  */
+@Entity
 public class Book implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String author;
     private int publishedYear;
     private String isbn;
     
-    public Book() 
-    {
-        
+    public Book(){
     }
 
     public Book(String name, String author, int publishedYear, String isbn) {
@@ -29,35 +35,41 @@ public class Book implements Serializable{
         this.publishedYear = publishedYear;
         this.isbn = isbn;
     }
-
     
-    
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     public int getPublishedYear() {
         return publishedYear;
     }
 
-    public void setPublishedYear(int publishedYear) {
-        this.publishedYear = publishedYear;
-    }
-
     public String getIsbn() {
         return isbn;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPublishedYear(int publishedYear) {
+        this.publishedYear = publishedYear;
     }
 
     public void setIsbn(String isbn) {
@@ -71,11 +83,11 @@ public class Book implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.name);
-        hash = 89 * hash + Objects.hashCode(this.author);
-        hash = 89 * hash + this.publishedYear;
-        hash = 89 * hash + Objects.hashCode(this.isbn);
+        int hash = 5;
+        hash = 61 * hash + Objects.hashCode(this.name);
+        hash = 61 * hash + Objects.hashCode(this.author);
+        hash = 61 * hash + this.publishedYear;
+        hash = 61 * hash + Objects.hashCode(this.isbn);
         return hash;
     }
 
@@ -105,6 +117,9 @@ public class Book implements Serializable{
         }
         return true;
     }
+
+
+    
     
     
 }
