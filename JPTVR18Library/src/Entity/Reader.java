@@ -7,12 +7,20 @@ package Entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author pupil
  */
+@Entity
 public class Reader implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String surname;
     private int day;
@@ -32,6 +40,14 @@ public class Reader implements Serializable {
         this.month = month;
         this.year = year;
         this.phone = phone;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -83,19 +99,15 @@ public class Reader implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Reader{" + "name=" + name + ", surname=" + surname + ", day=" + day + ", month=" + month + ", year=" + year + ", phone=" + phone + '}';
-    }
-
-    @Override
     public int hashCode() {
         int hash = 5;
-        hash = 31 * hash + Objects.hashCode(this.name);
-        hash = 31 * hash + Objects.hashCode(this.surname);
-        hash = 31 * hash + this.day;
-        hash = 31 * hash + this.month;
-        hash = 31 * hash + this.year;
-        hash = 31 * hash + Objects.hashCode(this.phone);
+        hash = 41 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.name);
+        hash = 41 * hash + Objects.hashCode(this.surname);
+        hash = 41 * hash + this.day;
+        hash = 41 * hash + this.month;
+        hash = 41 * hash + this.year;
+        hash = 41 * hash + Objects.hashCode(this.phone);
         return hash;
     }
 
@@ -129,8 +141,21 @@ public class Reader implements Serializable {
         if (!Objects.equals(this.phone, other.phone)) {
             return false;
         }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Reader{" + "name=" + name + 
+                ", surname=" + surname + 
+                ", day=" + day + ", month=" + month +
+                ", year=" + year + ", phone=" + phone + '}';
+    }
+
+   
     
     
 }

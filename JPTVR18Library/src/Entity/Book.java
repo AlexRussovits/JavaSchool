@@ -7,12 +7,20 @@ package Entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author pupil
  */
+@Entity
 public class Book implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String author;
     private int publishedYear;
@@ -30,8 +38,14 @@ public class Book implements Serializable{
         this.isbn = isbn;
     }
 
-    
-    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -65,17 +79,13 @@ public class Book implements Serializable{
     }
 
     @Override
-    public String toString() {
-        return "Book{" + "name=" + name + ", author=" + author + ", publishedYear=" + publishedYear + ", isbn=" + isbn + '}';
-    }
-
-    @Override
     public int hashCode() {
         int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.name);
-        hash = 89 * hash + Objects.hashCode(this.author);
-        hash = 89 * hash + this.publishedYear;
-        hash = 89 * hash + Objects.hashCode(this.isbn);
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.author);
+        hash = 97 * hash + this.publishedYear;
+        hash = 97 * hash + Objects.hashCode(this.isbn);
         return hash;
     }
 
@@ -103,8 +113,15 @@ public class Book implements Serializable{
         if (!Objects.equals(this.isbn, other.isbn)) {
             return false;
         }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
         return true;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Book{" + ", name=" + name + ", author=" + author + ", publishedYear=" + publishedYear + ", isbn=" + isbn + '}';
+    }
+        
 }

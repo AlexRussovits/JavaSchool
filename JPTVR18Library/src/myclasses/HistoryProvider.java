@@ -80,9 +80,14 @@ public class HistoryProvider {
         System.out.println("----Возврат книги----");
         System.out.println("Список историй: ");
         for (int i = 0; i < histories.size(); i++) {
-            History history = histories.get(i);
-            System.out.println(i+". Читатель "+history.getReader().getName()+ " "+history.getReader().getSurname()+ 
-                    " читает книгу: "+ history.getBook().getName());
+            History history = histories.get(i);       
+        if(history.getReturnDate()==null){
+               System.out.println(i+". Читатель "+history.getReader().getName()
+                        +" "+history.getReader().getSurname()
+                        +" читает книгу: "
+                        + history.getBook().getName()
+                ); 
+            }
         }
         System.out.println("Выберите нужный номер истории");
         int numHistory = scanner.nextInt();
