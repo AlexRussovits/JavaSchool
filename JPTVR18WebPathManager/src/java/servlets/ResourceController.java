@@ -6,15 +6,21 @@
 package servlets;
 
 import entity.Resource;
+import entity.User;
+import entity.UserResources;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import session.ResourceFacade;
+import session.UserResourcesFacade;
 
 /**
  *
@@ -33,6 +39,8 @@ import session.ResourceFacade;
 public class ResourceController extends HttpServlet {
     @EJB
     private ResourceFacade resourceFacade;
+    @EJB
+    private UserResourcesFacade userResourcesFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,6 +54,17 @@ public class ResourceController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            request.setAttribute("info", "У вас нет прав для этого ресураса. Авторизуйтесь");
+            request.getRequestDispatcher("/showFormLogon.jsp").forward(request,response);
+        }
+        User user = (User) session.getAttribute("user");
+        if(user == null) {
+            request.setAttribute("info", "У вас нет прав для этого ресураса. Авторизуйтесь");
+            request.getRequestDispatcher("/showFormLogon.jsp").forward(request,response);
+        }
         String path = request.getServletPath();
         switch (path) {
             case "/showFormAddResource":
@@ -58,6 +77,9 @@ public class ResourceController extends HttpServlet {
                 String password = request.getParameter("password");
                 Resource resource = new Resource(name, url, login, password);
                 resourceFacade.create(resource);
+                Calendar c = new GregorianCalendar();
+                UserResources userResources = new UserResources(user, resource, c.getTime());
+                userResourcesFacade.create(userResources);
                 request.setAttribute("info", "Ресурс создан \""+resource.getName()+"\" создан");
                 request.getRequestDispatcher("/index.jsp").forward(request,response);
                 break;
@@ -71,8 +93,6 @@ public class ResourceController extends HttpServlet {
             case "/updateResource":
                 break;
         }
-        request.setAttribute("info", "Это информация сформирована java кодом");
-        request.getRequestDispatcher("/page1.jsp").forward(request,response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

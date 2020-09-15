@@ -14,6 +14,7 @@
     <body>
         <h1>Создание нового ресурса!</h1>
         <form action="createResource" method="POST">
+            
             Имя ресурса: <input type="text" name="name"><br>
             URL ресурса: <input type="text" name="url"><br>
             Логин: <input type="text" name="login"><br>
