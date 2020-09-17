@@ -79,13 +79,14 @@ public class UserController extends HttpServlet {
                     HttpSession session = request.getSession(true);
                     session.setAttribute("user", user);
                     request.setAttribute("info", "Привет, " + user.getLogin());
-                    request.getRequestDispatcher("/index.jsp").forward(request,response);                    
+                    request.getRequestDispatcher("index.jsp").forward(request,response);                    
                     break;
                 case "/logout":
                     session = request.getSession(false);
                     if(session !=null) session.invalidate();
                     request.setAttribute("info", "Вы вышли");
-                    request.getRequestDispatcher("/index.jsp").forward(request,response);     
+                    response.sendRedirect("/index.jsp");
+//                    request.getRequestDispatcher("/index.jsp").forward(request,response);     
                     
                     break;
             }

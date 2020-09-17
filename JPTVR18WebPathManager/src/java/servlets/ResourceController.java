@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -84,9 +85,27 @@ public class ResourceController extends HttpServlet {
                 request.getRequestDispatcher("/index.jsp").forward(request,response);
                 break;
             case "/listResources":
-                
+                List<Resource> listResources = resourceFacade.findByUser(user);
+                request.setAttribute("listResources", listResources);
+                request.getRequestDispatcher("/showListResources.jsp").forward(request, response);
                 break;
-            case "/deleteResource":                
+            case "/deleteResource":
+                String id = request.getParameter("id");                
+                if(id == null || "".equals(id)) {
+                    request.setAttribute("info", "Нет такого ресурса");
+                    request.getRequestDispatcher("/showListResources").forward(request, response); 
+                }
+                Resource deleteResource = resourceFacade.find(Long.parseLong(id));
+                listResources = resourceFacade.findByUser(user);
+                if(!listResources.contains(deleteResource)) {
+                    request.setAttribute("info", "Нет такого ресурса");
+                    request.getRequestDispatcher("/showListResources").forward(request, response); 
+                }
+                userResourcesFacade.removeByResource(deleteResource);
+                
+                resourceFacade.remove(deleteResource);
+                request.setAttribute("info", "Ресурс " +deleteResource.getName()+ " удалён.");
+                request.getRequestDispatcher("/listResources").forward(request, response);
                 break;
             case "/showEditResource":                
                 break;
