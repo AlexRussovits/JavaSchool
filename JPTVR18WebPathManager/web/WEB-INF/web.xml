@@ -20,5 +20,9 @@
             <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>
+        <jsp-property-group>
+            <display-name>template2</display-name>
+            <url-pattern>*.jsp</url-pattern>
+        </jsp-property-group>
     </jsp-config>
 </web-app>

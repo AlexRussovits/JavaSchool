@@ -59,12 +59,12 @@ public class ResourceController extends HttpServlet {
         HttpSession session = request.getSession(false);
         if(session == null) {
             request.setAttribute("info", "У вас нет прав для этого ресураса. Авторизуйтесь");
-            request.getRequestDispatcher("/showFormLogon.jsp").forward(request,response);
+            request.getRequestDispatcher("/showFormLogin.jsp").forward(request,response);
         }
         User user = (User) session.getAttribute("user");
         if(user == null) {
             request.setAttribute("info", "У вас нет прав для этого ресураса. Авторизуйтесь");
-            request.getRequestDispatcher("/showFormLogon.jsp").forward(request,response);
+            request.getRequestDispatcher("/showFormLogin.jsp").forward(request,response);
         }
         String path = request.getServletPath();
         switch (path) {

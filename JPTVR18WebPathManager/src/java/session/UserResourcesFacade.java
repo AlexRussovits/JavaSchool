@@ -31,7 +31,6 @@ public class UserResourcesFacade extends AbstractFacade<UserResources> {
     }
     
     public void removeByResource(Resource deleteResource) {
-        em.createQuery("DELETE FROM UserResources ur WHERE  ur.resource = :resource").setParameter("resource", deleteResource);
-        em.flush();
+        em.createQuery("DELETE FROM UserResources ur WHERE  ur.resource = :resource").setParameter("resource", deleteResource).executeUpdate();
     }  
 }
