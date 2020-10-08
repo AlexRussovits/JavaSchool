@@ -7,6 +7,7 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +15,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author pupil
+ * @author PC
  */
 @Entity
 public class Customer implements Serializable {
@@ -23,18 +24,20 @@ public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String fname;
-    private String lname;
+    @Column(unique = true)
+    private String login;
+    private String password;
     private double purse;
+    private String salts;
 
     public Customer() {
-        
     }
 
-    public Customer(String fname, String lname, double purse) {
-        this.fname = fname;
-        this.lname = lname;
+    public Customer(String login, String password, double purse, String salts) {
+        this.login = login;
+        this.password = password;
         this.purse = purse;
+        this.salts = salts;
     }
 
     public Long getId() {
@@ -45,20 +48,20 @@ public class Customer implements Serializable {
         this.id = id;
     }
 
-    public String getFname() {
-        return fname;
+    public String getLogin() {
+        return login;
     }
 
-    public void setFname(String fname) {
-        this.fname = fname;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public String getLname() {
-        return lname;
+    public String getPassword() {
+        return password;
     }
 
-    public void setLname(String lname) {
-        this.lname = lname;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public double getPurse() {
@@ -69,13 +72,22 @@ public class Customer implements Serializable {
         this.purse = purse;
     }
 
+    public String getSalts() {
+        return salts;
+    }
+
+    public void setSalts(String salts) {
+        this.salts = salts;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 83 * hash + Objects.hashCode(this.id);
-        hash = 83 * hash + Objects.hashCode(this.fname);
-        hash = 83 * hash + Objects.hashCode(this.lname);
-        hash = 83 * hash + (int) (Double.doubleToLongBits(this.purse) ^ (Double.doubleToLongBits(this.purse) >>> 32));
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        hash = 73 * hash + Objects.hashCode(this.login);
+        hash = 73 * hash + Objects.hashCode(this.password);
+        hash = 73 * hash + (int) (Double.doubleToLongBits(this.purse) ^ (Double.doubleToLongBits(this.purse) >>> 32));
+        hash = 73 * hash + Objects.hashCode(this.salts);
         return hash;
     }
 
@@ -94,10 +106,13 @@ public class Customer implements Serializable {
         if (Double.doubleToLongBits(this.purse) != Double.doubleToLongBits(other.purse)) {
             return false;
         }
-        if (!Objects.equals(this.fname, other.fname)) {
+        if (!Objects.equals(this.login, other.login)) {
             return false;
         }
-        if (!Objects.equals(this.lname, other.lname)) {
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.salts, other.salts)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
@@ -108,7 +123,6 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "Customer{" + "id=" + id + ", fname=" + fname + ", lname=" + lname + ", purse=" + purse + '}';
-    }
-    
+        return "Customer{" + "id=" + id + ", login=" + login + ", password=" + password + ", purse=" + purse + '}';
+    }  
 }

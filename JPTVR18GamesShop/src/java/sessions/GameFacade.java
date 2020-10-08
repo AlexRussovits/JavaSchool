@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package session;
+package sessions;
 
-import entity.AbstractFacade;
 import entity.Game;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -13,12 +12,12 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author pupil
+ * @author PC
  */
 @Stateless
 public class GameFacade extends AbstractFacade<Game> {
 
-    @PersistenceContext(unitName = "JPTVR18GameShopPU")
+    @PersistenceContext(unitName = "JPTVR18GamesShopPU")
     private EntityManager em;
 
     @Override

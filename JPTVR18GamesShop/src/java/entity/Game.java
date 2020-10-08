@@ -15,26 +15,26 @@ import javax.persistence.Id;
 
 /**
  *
- * @author pupil
+ * @author PC
  */
 @Entity
 public class Game implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)   
     private Long id;
     @Column(unique = true)
     private String name;
-    private String devGame;
+    private String devName;
     private double price;
 
     public Game() {
     }
 
-    public Game(String name, String devGame, double price) {
+    public Game(String name, String devName, double price) {
         this.name = name;
-        this.devGame = devGame;
+        this.devName = devName;
         this.price = price;
     }
 
@@ -54,12 +54,12 @@ public class Game implements Serializable {
         this.name = name;
     }
 
-    public String getDevGame() {
-        return devGame;
+    public String getDevName() {
+        return devName;
     }
 
-    public void setDevGame(String devGame) {
-        this.devGame = devGame;
+    public void setDevName(String devName) {
+        this.devName = devName;
     }
 
     public double getPrice() {
@@ -73,10 +73,10 @@ public class Game implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.id);
-        hash = 37 * hash + Objects.hashCode(this.name);
-        hash = 37 * hash + Objects.hashCode(this.devGame);
-        hash = 37 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
+        hash = 41 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.name);
+        hash = 41 * hash + Objects.hashCode(this.devName);
+        hash = 41 * hash + (int) (Double.doubleToLongBits(this.price) ^ (Double.doubleToLongBits(this.price) >>> 32));
         return hash;
     }
 
@@ -98,7 +98,7 @@ public class Game implements Serializable {
         if (!Objects.equals(this.name, other.name)) {
             return false;
         }
-        if (!Objects.equals(this.devGame, other.devGame)) {
+        if (!Objects.equals(this.devName, other.devName)) {
             return false;
         }
         if (!Objects.equals(this.id, other.id)) {
@@ -109,8 +109,6 @@ public class Game implements Serializable {
 
     @Override
     public String toString() {
-        return "Game{" + "id=" + id + ", name=" + name + ", devGame=" + devGame + ", price=" + price + '}';
-    }
-    
-    
+        return "Game{" + "id=" + id + ", name=" + name + ", devName=" + devName + ", price=" + price + '}';
+    } 
 }
