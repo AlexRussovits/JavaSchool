@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlets;
+package sevlets;
 
-import entity.Customer;
-import entity.CustomerRoles;
 import entity.Role;
+import utils.MakeHash;
+import entity.User;
+import entity.UserRoles;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,31 +17,50 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import sessions.CustomerFacade;
-import sessions.CustomerRolesFacade;
-import sessions.RoleFacade;
-import utilities.MakeHash;
+import session.RoleFacade;
+import session.UserFacade;
+import session.UserRolesFacade;
 
 /**
  *
- * @author PC
+ * @author Melnikov
  */
-@WebServlet(name = "CustomerController", urlPatterns =
-    {"/createCustomer",
-     "/showFormAddCustomer",
-     "/showFormLogin",
-     "/login",
-     "/logout",
-        
-    })
-public class CustomerController extends HttpServlet {
-    @EJB 
-    private CustomerFacade customerFacade;
-    @EJB
-    private RoleFacade roleFacade;
-    @EJB
-    private CustomerRolesFacade customerRolesFacade;
+@WebServlet(name = "UserController", loadOnStartup = 1 , urlPatterns = {
+    "/showFormAddUser",
+    "/createUser",
+    "/showFormLogin",
+    "/login",
+    "/logout"
+})
 
+public class UserController extends HttpServlet {
+    @EJB
+    private UserFacade userFacade;
+    private RoleFacade roleFacade;
+    private UserRolesFacade userRolesFacade;
+
+    @Override
+    public void init() throws ServletException {
+        int countRoles  = roleFacade.count();
+        if(countRoles > 0) return; 
+            MakeHash mh = new MakeHash();
+            String salts = mh.createSalts();
+            String password = mh.createHash("sanya2002", salts);
+            User admin = new User("admin", password, salts);
+            userFacade.create(admin);
+            UserRoles userRoles = new UserRoles();
+            userRoles.setUser(admin);
+            Role roleUser = new Role("ADMIN");
+            roleFacade.create(roleUser);
+            userRoles.setRole(roleUser);
+            userRolesFacade.create(userRoles);
+            roleUser = new Role("USER");
+            roleFacade.create(roleUser);
+            userRoles.setRole(roleUser);  
+            userRolesFacade.create(userRoles);
+    }
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -54,39 +73,35 @@ public class CustomerController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-             String path = request.getServletPath();
-       switch (path) {
-          case "/index":
-            request.getRequestDispatcher("/index.jsp")
-                    .forward(request, response);
+        String path = request.getServletPath();
+        switch (path) {
+            case "/index":
+                request.getRequestDispatcher("/index.jsp")
+                        .forward(request, response);
                 break;
-          case "/showFormLogin":
+            case "/showFormLogin":
                 request.getRequestDispatcher("/systemPages/showFormLogin.jsp")
                         .forward(request, response);
                 break;
-          case "/login":
+            case "/login":
                 String login = request.getParameter("login");
                 String password = request.getParameter("password");
-                Customer customer = customerFacade.findByLogin(login);
-                if(customer == null){
+                User user = userFacade.findByLogin(login);
+                if(user == null){
                     request.setAttribute("info", "Нет такого логина или пароля");
                     request.getRequestDispatcher("/showFormLogin")
                         .forward(request, response);
                 }
                 MakeHash mh = new MakeHash();
-                String encryptPassword = mh.createHash(password,customer.getSalts());
-                if(!encryptPassword.equals(customer.getPassword())){
+                String encryptPassword = mh.createHash(password,user.getSalts());
+                if(!encryptPassword.equals(user.getPassword())){
                     request.setAttribute("info", "Нет такого логина или пароля");
                     request.getRequestDispatcher("/showFormLogin")
                         .forward(request, response);
                 }
                 HttpSession session = request.getSession(true);
-                session.setAttribute("customer", customer);
-                request.setAttribute("info", "Привет, "+customer.getLogin());
-                request.setAttribute("customer", customer);
-                
+                session.setAttribute("user", user);
+                request.setAttribute("info", "Привет, "+user.getLogin());
                 request.getRequestDispatcher("/index.jsp")
                         .forward(request, response);
                 break;
@@ -96,29 +111,27 @@ public class CustomerController extends HttpServlet {
                 request.setAttribute("info", "Вы вышли");
                 response.sendRedirect("index.jsp");
                 break;
-            case "/showFormAddCustomer":
-                request.getRequestDispatcher("/pages/showFormAddCustomer.jsp")
+            case "/showFormAddUser":
+                request.getRequestDispatcher("/pages/showFormAddUser.jsp")
                         .forward(request, response);
                 break;
-            case "/createCustomer":
+            case "/createUser":
                 login = request.getParameter("login");
                 password = request.getParameter("password");
                 MakeHash makeHash = new MakeHash();
                 String salts = makeHash.createSalts();
                 String encodingPassword = makeHash.createHash(password, salts);
-                customer = new Customer(login, encodingPassword, 0, salts);
-                customerFacade.create(customer);
+                user = new User(login,encodingPassword,salts);                
+                userFacade.create(user);
                 Role role = roleFacade.getRole("USER");
-                CustomerRoles customerRoles = new CustomerRoles(customer, role);
-                customerRolesFacade.create(customerRoles);
-                
-                request.setAttribute("info", "Добавлен пользователь с логином "+customer.getLogin());
+                UserRoles userRoles = new UserRoles(user,role);
+                userRolesFacade.create(userRoles);
+                request.setAttribute("info", "Добавлен пользователь с логином "+user.getLogin());
                 request.getRequestDispatcher("/index.jsp")
                         .forward(request, response);
-                break;
-      }
+                break;           
+        }
     }
- }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

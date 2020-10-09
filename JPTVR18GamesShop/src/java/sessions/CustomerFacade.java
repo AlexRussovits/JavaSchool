@@ -28,5 +28,9 @@ public class CustomerFacade extends AbstractFacade<Customer> {
     public CustomerFacade() {
         super(Customer.class);
     }
+
+    public Customer findByLogin(String login) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

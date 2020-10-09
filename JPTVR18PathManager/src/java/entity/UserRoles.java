@@ -11,25 +11,31 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
- * @author PC
+ * @author pupil
  */
 @Entity
-public class Role implements Serializable {
+public class UserRoles implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    @OneToOne
+    private User user;
+    @OneToOne
+    private Role role;
 
-    public Role() {
+    public UserRoles() {
+        
     }
 
-    public Role(String name) {
-        this.name = name;
+    public UserRoles(User user, Role role) {
+        this.user = user;
+        this.role = role;
     }
 
     public Long getId() {
@@ -40,19 +46,28 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public User getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 19 * hash + Objects.hashCode(this.id);
-        hash = 19 * hash + Objects.hashCode(this.name);
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.id);
+        hash = 83 * hash + Objects.hashCode(this.user);
+        hash = 83 * hash + Objects.hashCode(this.role);
         return hash;
     }
 
@@ -67,11 +82,14 @@ public class Role implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Role other = (Role) obj;
-        if (!Objects.equals(this.name, other.name)) {
+        final UserRoles other = (UserRoles) obj;
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.id, other.id)) {
+        if (!Objects.equals(this.user, other.user)) {
+            return false;
+        }
+        if (!Objects.equals(this.role, other.role)) {
             return false;
         }
         return true;
@@ -79,8 +97,6 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "Role{" + "id=" + id + ", name=" + name + '}';
-    }
-    
-    
+        return "UserRoles{" + "id=" + id + ", user=" + user.getLogin() + ", role=" + role.getName() + '}';
+    }    
 }

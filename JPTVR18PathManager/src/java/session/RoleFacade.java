@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sessions;
+package session;
 
 import entity.Role;
 import javax.ejb.Stateless;
@@ -12,12 +12,12 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author PC
+ * @author pupil
  */
 @Stateless
 public class RoleFacade extends AbstractFacade<Role> {
 
-    @PersistenceContext(unitName = "JPTVR18GamesShopPU")
+    @PersistenceContext(unitName = "JPTVR18PathManagerPU")
     private EntityManager em;
 
     @Override
@@ -29,8 +29,12 @@ public class RoleFacade extends AbstractFacade<Role> {
         super(Role.class);
     }
 
-    public Role getRole(String user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    public Role getRole(String roleName) {
+        try {
+           return (Role) em.createQuery("SELECT r FROM Role r WHERE r.name = :roleName").setParameter("roleName", roleName).getSingleResult();
+        } 
+        catch (Exception e) {  
+            return null;
+        }        
+    }   
 }

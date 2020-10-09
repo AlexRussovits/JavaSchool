@@ -57,11 +57,9 @@ public class GameController extends HttpServlet {
             String path = request.getServletPath();
             switch (path) {
                 
-                case "/showFormAddGames":
-                    
+                case "/showFormAddGames":                   
                     request.getRequestDispatcher("/pages/showFormAddGames.jsp")
-                        .forward(request, response);
-                    
+                        .forward(request, response);                   
                     break;
                     
                 case "/createGame":
@@ -70,8 +68,8 @@ public class GameController extends HttpServlet {
                     Game game = new Game (name, devName, 0);
                     gameFacade.create(game);
                     Calendar c = new GregorianCalendar();
-                    //CustomerGames customerGames = new CustomerGames(customer, game, date);
-                    //customerGamesFacade.create(customerGames);
+                    CustomerGames customerGames = new CustomerGames(customer, game, c.getTime());
+                    customerGamesFacade.create(customerGames);
                     request.setAttribute("info", "Ресурс \""
                         +game.getName()+"\" создан");
                     request.getRequestDispatcher("/index.jsp")
@@ -79,62 +77,56 @@ public class GameController extends HttpServlet {
                     break;
                     
                 case "/listGames":
-                    //List<Game> listGames = gameFacade.findByCustomer(customer);
-//                    request.setAttribute("listResources", listResources);
-//                    request.getRequestDispatcher("/pages/showListResources.jsp")
-//                        .forward(request, response); 
+                   List<Game> listGames = gameFacade.findByCustomer(customer);
+                   request.setAttribute("listGames", listGames);
+                   request.getRequestDispatcher("/pages/showListGames.jsp")
+                        .forward(request, response); 
                     break;   
                 
                 case "/showGame":
-//                    String id = request.getParameter("idRecource");
-//                    resource = resourceFacade.find(Long.parseLong(id));
-//                    request.setAttribute("resource", resource);
-//                    request.getRequestDispatcher("/pages/showResource.jsp")
-//                            .forward(request, response);
-                    
+                   String id = request.getParameter("idGame");
+                   game = gameFacade.find(Long.parseLong(id));
+                   request.setAttribute("game", game);
+                   request.getRequestDispatcher("/pages/showGame.jsp")
+                           .forward(request, response);                   
                     break;       
                       
                 case "/deleteGame":
-//                    id = request.getParameter("idResource");
-//                    if(id == null || "".equals(id)){
-//                    request.setAttribute("info", "Нет такого ресурса");
-//                    request.getRequestDispatcher("/showListResources")
-//                        .forward(request, response);
-//                    break;
-//                }
-//                    Resource deleteResource = resourceFacade.find(Long.parseLong(id));
-//                    listResources = resourceFacade.findByUser(user);
-//                    if(!listResources.contains(deleteResource)){
-//                    request.setAttribute("info", "Нет такого ресурса");
-//                    request.getRequestDispatcher("/showListResources")
-//                        .forward(request, response);
-//                    break;
-//                }
-//                    userResourcesFacade.removeByResource(deleteResource);
-//                    request.setAttribute("info", "Ресурс "+deleteResource.getName()+" удален.");
-//                    request.getRequestDispatcher("/listResources")
-//                        .forward(request, response);
+                    id = request.getParameter("idGame");
+                    if(id == null || "".equals(id)){
+                    request.setAttribute("info", "Нет такого ресурса");
+                    request.getRequestDispatcher("/showListGames")
+                        .forward(request, response);
+                    break;
+                }
+                    Game deleteGame = gameFacade.find(Long.parseLong(id));
+                    listGames = gameFacade.findByCustomer(customer);
+                    if(!listGames.contains(deleteGame)){
+                    request.setAttribute("info", "Нет такого ресурса");
+                    request.getRequestDispatcher("/showListGames")
+                        .forward(request, response);
+                    break;
+                }
+                    customerGamesFacade.removeByGame(deleteGame);
+                    request.setAttribute("info", "Ресурс "+deleteGame.getName()+" удален.");
+                    request.getRequestDispatcher("/listGames")
+                        .forward(request, response);
                     
                     break;
                 case "/showEditGame":
                     
                     break;      
                 case "/updateGame":
-//                    id = request.getParameter("idRecource");
-//                resource = resourceFacade.find(Long.parseLong(id));
-//                name = request.getParameter("name");
-//                url = request.getParameter("url");
-//                login = request.getParameter("login");
-//                password = request.getParameter("password");
-//                resource.setLogin(login);
-//                resource.setUrl(url);
-//                resource.setName(name);
-//                resource.setPassword(password);
-//                resourceFacade.edit(resource);
-//                request.setAttribute("resource", resource);
-//                request.getRequestDispatcher("/pages/showResource.jsp")
-//                        .forward(request, response);
-                    
+                id = request.getParameter("idGame");
+                game = gameFacade.find(Long.parseLong(id));
+                name = request.getParameter("name");               
+                devName = request.getParameter("devName");
+                game.setDevName(devName);
+                game.setName(name);
+                gameFacade.edit(game);
+                request.setAttribute("game", game);
+                request.getRequestDispatcher("/pages/showGame.jsp")
+                        .forward(request, response);                    
                     break;   
 
 

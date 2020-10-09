@@ -6,6 +6,7 @@
 package sessions;
 
 import entity.CustomerGames;
+import entity.Game;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,10 @@ public class CustomerGamesFacade extends AbstractFacade<CustomerGames> {
 
     public CustomerGamesFacade() {
         super(CustomerGames.class);
+    }
+
+    public void removeByGame(Game deleteGame) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

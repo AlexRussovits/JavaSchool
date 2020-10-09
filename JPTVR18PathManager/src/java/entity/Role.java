@@ -14,7 +14,7 @@ import javax.persistence.Id;
 
 /**
  *
- * @author PC
+ * @author pupil
  */
 @Entity
 public class Role implements Serializable {
@@ -26,6 +26,7 @@ public class Role implements Serializable {
     private String name;
 
     public Role() {
+        
     }
 
     public Role(String name) {
@@ -50,9 +51,9 @@ public class Role implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 19 * hash + Objects.hashCode(this.id);
-        hash = 19 * hash + Objects.hashCode(this.name);
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        hash = 73 * hash + Objects.hashCode(this.name);
         return hash;
     }
 
@@ -80,7 +81,5 @@ public class Role implements Serializable {
     @Override
     public String toString() {
         return "Role{" + "id=" + id + ", name=" + name + '}';
-    }
-    
-    
+    }          
 }
