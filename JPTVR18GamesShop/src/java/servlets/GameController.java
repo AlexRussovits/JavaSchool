@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import entity.Customer;
 import entity.CustomerGames;
 import entity.Game;
 import java.io.IOException;
@@ -18,7 +19,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import sessions.CustomerGamesFacade;
+import sessions.CustomerRolesFacade;
 import sessions.GameFacade;
 
 /**
@@ -40,6 +43,8 @@ public class GameController extends HttpServlet {
     private GameFacade gameFacade;
     @EJB
     private CustomerGamesFacade customerGamesFacade;
+    @EJB
+    private CustomerRolesFacade customerRolesFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -53,7 +58,22 @@ public class GameController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+         request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(false);
+        if(session == null){
+            request.setAttribute("info", "У вас нет прав для просмотра игр. Авторизуйтесь");
+            request.getRequestDispatcher("/showFormLogin")
+                .forward(request, response);
+        }
+        Customer customer = (Customer) session.getAttribute("customer");
+        //UserManager userManager = new UserManager();
+        if(!customerRolesFacade.checkRole(customer,"CUSTOMER")){
+            request.setAttribute("info", "У вас нет прав для просмотра игр. Авторизуйтесь");
+            request.getRequestDispatcher("/showFormLogin")
+                .forward(request, response);
+        }
         try (PrintWriter out = response.getWriter()) {
+            
             String path = request.getServletPath();
             switch (path) {
                 
@@ -94,7 +114,7 @@ public class GameController extends HttpServlet {
                 case "/deleteGame":
                     id = request.getParameter("idGame");
                     if(id == null || "".equals(id)){
-                    request.setAttribute("info", "Нет такого ресурса");
+                    request.setAttribute("info", "Нет такого игры");
                     request.getRequestDispatcher("/showListGames")
                         .forward(request, response);
                     break;
@@ -102,13 +122,13 @@ public class GameController extends HttpServlet {
                     Game deleteGame = gameFacade.find(Long.parseLong(id));
                     listGames = gameFacade.findByCustomer(customer);
                     if(!listGames.contains(deleteGame)){
-                    request.setAttribute("info", "Нет такого ресурса");
+                    request.setAttribute("info", "Нет такого игры");
                     request.getRequestDispatcher("/showListGames")
                         .forward(request, response);
                     break;
                 }
                     customerGamesFacade.removeByGame(deleteGame);
-                    request.setAttribute("info", "Ресурс "+deleteGame.getName()+" удален.");
+                    request.setAttribute("info", "Игра "+ deleteGame.getName()+" удалена.");
                     request.getRequestDispatcher("/listGames")
                         .forward(request, response);
                     

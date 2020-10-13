@@ -5,7 +5,9 @@
  */
 package sessions;
 
+import entity.Customer;
 import entity.CustomerRoles;
+import entity.Role;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +29,22 @@ public class CustomerRolesFacade extends AbstractFacade<CustomerRoles> {
 
     public CustomerRolesFacade() {
         super(CustomerRoles.class);
+    }
+
+    public boolean checkRole(Customer customer, String customer0) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public String getTopRoleName(Customer customerForMap) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void deleteAllCustomerRoles(Customer updateCustomer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setNewRoleToCustomer(Role newRoleUpdateCustomer, Customer updateCustomer) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

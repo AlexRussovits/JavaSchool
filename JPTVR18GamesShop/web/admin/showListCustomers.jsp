@@ -1,17 +1,14 @@
-<%-- 
-    Document   : showListCustomers
-    Created on : Oct 9, 2020, 9:57:47 AM
-    Author     : pupil
---%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Hello World!</h1>
-    </body>
-</html>
+<form action="showGame" method="POST" id="formShowGame">   
+    
+        <h3 class="w-100 text-center">Список покупателей:</h3>
+            <div class="form-group w-50 mx-auto">
+              <c:forEach var="entry" items="${usersMap}" varStatus="status">
+                    <p>${status.index + 1}. ${entry.key.login} роль: ${entry.value} 
+                      <a href="editCustomerRoles?customerId=${entry.key.id}">Редактировать</a>
+                    </p>
+                </c:forEach>
+            </div>
+
+</form>

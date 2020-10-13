@@ -5,13 +5,24 @@
  */
 package servlets;
 
+import entity.Customer;
+import entity.Role;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import sessions.CustomerFacade;
+import sessions.CustomerRolesFacade;
+import sessions.RoleFacade;
+import utilities.MakeHash;
 
 /**
  *
@@ -23,6 +34,12 @@ import javax.servlet.http.HttpServletResponse;
          "/updateCustomerRoles",})
 
 public class AdminController extends HttpServlet {
+    @EJB
+    private CustomerRolesFacade customerRolesFacade;
+    @EJB
+    private CustomerFacade customerFacade;
+    @EJB
+    private RoleFacade roleFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,91 +56,91 @@ public class AdminController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-//            HttpSession session = request.getSession(false);
-//        if(session == null){
-//            request.setAttribute("info", "У вас нет прав для этого ресурса. Авторизуйтесь");
-//            request.getRequestDispatcher("/showFormLogin")
-//                .forward(request, response);
-//        }
-//        User user = (User) session.getAttribute("user");
-//        //UserManager userManager = new UserManager();
-//        if(!userRolesFacade.checkRole(user,"ADMIN")){
-//            request.setAttribute("info", "У вас нет прав для этого ресурса. Авторизуйтесь");
-//            request.getRequestDispatcher("/showFormLogin")
-//                .forward(request, response);
-//        }
-//        
-//        String path = request.getServletPath();
-//        switch (path) {
-//            case "/showListUsers":
-//                Map<User,String> usersMap = new HashMap<>();
-//                List<User> listUsers = userFacade.findAll();
-//                for (int i = 0; i < listUsers.size(); i++) {
-//                    User userForMap = listUsers.get(i);
-//                    String topRoleUserForMap = userRolesFacade.getTopRoleName(userForMap);
-//                    usersMap.put(userForMap, topRoleUserForMap);
-//                }
-//                request.setAttribute("usersMap", usersMap);
-//                
-//                request.getRequestDispatcher("/admin/showListUsers.jsp")
-//                        .forward(request, response);
-//                break;
-//            case "/editUserRoles":
-//                String userId = request.getParameter("userId");
-//                User editUser = userFacade.find(Long.parseLong(userId));
-//                if(editUser == null){
-//                    request.setAttribute("info", "Не найден пользователь с иднетификатором "+userId);
-//                    request.getRequestDispatcher("/admin/showListUsers.jsp")
-//                        .forward(request, response);
-//                    break;
-//                }
-//                request.setAttribute("editUser", editUser);
-//                List<Role> listRoles = roleFacade.findAll();
-//                request.setAttribute("listRoles", listRoles);
-//                String topRoleEditUser = userRolesFacade.getTopRoleName(editUser);
-//                request.setAttribute("topRoleEditUser", topRoleEditUser);
-//                
-//                request.getRequestDispatcher("/admin/editUserRolesForm.jsp")
-//                    .forward(request, response);
-//                break;
-//            case "/updateUserRoles":
-//                userId = request.getParameter("userId");
-//                String newLogin = request.getParameter("newLogin");
-//                String newPassword = request.getParameter("newPassword");
-//                String currentRole = request.getParameter("currentRole");
-//                String newRole = request.getParameter("newRole");
-//                if(newRole.equals(currentRole)){
-//                    request.setAttribute("info", "Роль не изменилась. Выберите другуюроль");
-//                    request.getRequestDispatcher("/admin/editUserRolesForm.jsp")
-//                        .forward(request, response);
-//                    break;
-//                }
-//                Role newRoleUpdateUser = roleFacade.find(Long.parseLong(newRole));
-//                if(userId == null){
-//                    request.setAttribute("info", "Не найден пользователь с иднетификатором "+userId);
-//                    request.getRequestDispatcher("/showListUsers")
-//                        .forward(request, response);
-//                    break;
-//                }
-//                User updateUser = userFacade.find(Long.parseLong(userId));
-//                userRolesFacade.deleteAllUserRoles(updateUser);
-//                userRolesFacade.setNewRoleToUser(newRoleUpdateUser,updateUser);
-//                updateUser.setLogin(newLogin);
-//                if(newPassword != null && !newPassword.isEmpty()){
-//                    MakeHash mh = new MakeHash();
-//                    String salts = mh.createSalts();
-//                    newPassword = mh.createHash(newPassword, salts);
-//                    updateUser.setPassword(newPassword);
-//                }
-//                userFacade.edit(updateUser);
-//                request.setAttribute("info", "Данные пользователя "+updateUser.getLogin()+" изменены");
-//                    request.getRequestDispatcher("/showListUsers")
-//                        .forward(request, response);
-//                break;
+            HttpSession session = request.getSession(false);
+        if(session == null){
+            request.setAttribute("info", "У вас нет прав для просмотра игр. Авторизуйтесь");
+           request.getRequestDispatcher("/showFormLogin")
+                .forward(request, response);
+        }
+        Customer customer = (Customer) session.getAttribute("customer");
+        //UserManager userManager = new UserManager();
+        if(!customerRolesFacade.checkRole(customer,"ADMIN")){
+           request.setAttribute("info", "У вас нет прав для этого ресурса. Авторизуйтесь");
+         request.getRequestDispatcher("/showFormLogin")
+                .forward(request, response);
+        }
+        
+        String path = request.getServletPath();
+        switch (path) {
+            case "/showListCustomers":
+                Map<Customer,String> customersMap = new HashMap<>();
+                List<Customer> listCustomers = customerFacade.findAll();
+                for (int i = 0; i < listCustomers.size(); i++) {
+                    Customer customerForMap = listCustomers.get(i);
+                    String topRoleCustomerForMap = customerRolesFacade.getTopRoleName(customerForMap);
+                    customersMap.put(customerForMap, topRoleCustomerForMap);
+                }
+                request.setAttribute("customersMap", customersMap);
+                
+                request.getRequestDispatcher("/admin/showListUsers.jsp")
+                        .forward(request, response);
+                break;
+            case "/editCustomerRoles":
+                String customerId = request.getParameter("customerId");
+                Customer editCustomer = customerFacade.find(Long.parseLong(customerId));
+                if(editCustomer == null){
+                    request.setAttribute("info", "Не найден покупатель с иднетификатором "+customerId);
+                    request.getRequestDispatcher("/admin/showListCustomers.jsp")
+                        .forward(request, response);
+                    break;
+                }
+                request.setAttribute("editCustomer", editCustomer);
+                List<Role> listRoles = roleFacade.findAll();
+                request.setAttribute("listRoles", listRoles);
+                String topRoleEditCustomer = customerRolesFacade.getTopRoleName(editCustomer);
+                request.setAttribute("topRoleEditCustomer", topRoleEditCustomer);
+                
+                request.getRequestDispatcher("/admin/editCustomerRolesForm.jsp")
+                    .forward(request, response);
+                break;
+            case "/updateUserRoles":
+                customerId = request.getParameter("customerId");
+                String newLogin = request.getParameter("newLogin");
+                String newPassword = request.getParameter("newPassword");
+                String currentRole = request.getParameter("currentRole");
+                String newRole = request.getParameter("newRole");
+                if(newRole.equals(currentRole)){
+                    request.setAttribute("info", "Роль не изменилась. Выберите другую роль");
+                    request.getRequestDispatcher("/admin/editUserRolesForm.jsp")
+                        .forward(request, response);
+                    break;
+                }
+                Role newRoleUpdateCustomer = roleFacade.find(Long.parseLong(newRole));
+                if(customerId == null){
+                    request.setAttribute("info", "Не найден покупатель с иднетификатором "+customerId);
+                    request.getRequestDispatcher("/showListCustomers")
+                        .forward(request, response);
+                    break;
+                }
+                Customer updateCustomer = customerFacade.find(Long.parseLong(customerId));
+                customerRolesFacade.deleteAllCustomerRoles(updateCustomer);
+                customerRolesFacade.setNewRoleToCustomer(newRoleUpdateCustomer,updateCustomer);
+                updateCustomer.setLogin(newLogin);
+                if(newPassword != null && !newPassword.isEmpty()){
+                    MakeHash mh = new MakeHash();
+                    String salts = mh.createSalts();
+                    newPassword = mh.createHash(newPassword, salts);
+                    updateCustomer.setPassword(newPassword);
+                }
+                customerFacade.edit(updateCustomer);
+                request.setAttribute("info", "Данные покупателя "+updateCustomer.getLogin()+" изменены");
+                    request.getRequestDispatcher("/showListCustomers")
+                        .forward(request, response);
+                break;
+            }
         }
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

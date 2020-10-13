@@ -5,14 +5,20 @@
  */
 package utilities;
 
+import entity.Customer;
+import javax.ejb.EJB;
+import sessions.CustomerRolesFacade;
+
 /**
  *
  * @author pupil
  */
 public class CustomerManager {
+    @EJB
+    private CustomerRolesFacade customerRolesFacade;
     
-//    public boolean isRole(User user, String roleName) {
-//        return userRolesFacade.checkRole(user,roleName);
-//    }
+    public boolean isRole(Customer customer, String roleName) {
+        return customerRolesFacade.checkRole(customer,roleName);
+    }
     
 }

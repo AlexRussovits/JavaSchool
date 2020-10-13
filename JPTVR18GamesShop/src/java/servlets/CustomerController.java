@@ -41,6 +41,30 @@ public class CustomerController extends HttpServlet {
     private RoleFacade roleFacade;
     @EJB
     private CustomerRolesFacade customerRolesFacade;
+ 
+
+    @Override
+    public void init() throws ServletException {
+        int countRoles = roleFacade.count();
+        if(countRoles > 0) return;
+        MakeHash mh = new MakeHash();
+        String salts = mh.createSalts();
+        String password = mh.createHash("123123", salts);
+        Customer admin = new Customer("admin", password, 0, salts);
+        customerFacade.create(admin);
+        CustomerRoles customerRoles = new CustomerRoles();
+        customerRoles.setCustomer(admin);
+        Role roleCustomer = new Role("ADMIN");
+        roleFacade.create(roleCustomer);
+        customerRoles.setRole(roleCustomer);
+        customerRolesFacade.create(customerRoles);
+        roleCustomer = new Role("CUSTOMER");
+        roleFacade.create(roleCustomer);
+        customerRoles.setRole(roleCustomer);
+        customerRolesFacade.create(customerRoles);
+    }
+    
+    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -108,7 +132,7 @@ public class CustomerController extends HttpServlet {
                 String encodingPassword = makeHash.createHash(password, salts);
                 customer = new Customer(login, encodingPassword, 0, salts);
                 customerFacade.create(customer);
-                Role role = roleFacade.getRole("USER");
+                Role role = roleFacade.getRole("CUSTOMER");
                 CustomerRoles customerRoles = new CustomerRoles(customer, role);
                 customerRolesFacade.create(customerRoles);
                 
