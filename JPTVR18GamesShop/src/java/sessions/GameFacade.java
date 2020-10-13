@@ -32,7 +32,11 @@ public class GameFacade extends AbstractFacade<Game> {
     }
 
     public List<Game> findByCustomer(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return em.createQuery("SELECT cg.game FROM CustomerGames cg WHERE cg.customer = :customer").setParameter("customer", customer).getResultList();
+        } catch (Exception e) {
+            return null;
+        }
     }
     
 }

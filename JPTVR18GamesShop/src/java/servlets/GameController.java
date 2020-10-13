@@ -85,13 +85,14 @@ public class GameController extends HttpServlet {
                 case "/createGame":
                     String name = request.getParameter("name");
                     String devName = request.getParameter("devName");
+                    //int pr = request.getParameter("price");
                     Game game = new Game (name, devName, 0);
                     gameFacade.create(game);
                     Calendar c = new GregorianCalendar();
                     CustomerGames customerGames = new CustomerGames(customer, game, c.getTime());
                     customerGamesFacade.create(customerGames);
-                    request.setAttribute("info", "Ресурс \""
-                        +game.getName()+"\" создан");
+                    request.setAttribute("info", "Игра \""
+                        +game.getName()+"\" создана");
                     request.getRequestDispatcher("/index.jsp")
                         .forward(request, response);
                     break;
@@ -114,7 +115,7 @@ public class GameController extends HttpServlet {
                 case "/deleteGame":
                     id = request.getParameter("idGame");
                     if(id == null || "".equals(id)){
-                    request.setAttribute("info", "Нет такого игры");
+                    request.setAttribute("info", "Нет такой игры");
                     request.getRequestDispatcher("/showListGames")
                         .forward(request, response);
                     break;

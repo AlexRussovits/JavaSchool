@@ -29,8 +29,12 @@ public class RoleFacade extends AbstractFacade<Role> {
         super(Role.class);
     }
 
-    public Role getRole(String user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Role getRole(String roleName) {
+        try {
+           return (Role) em.createQuery("SELECT r FROM Role r WHERE r.name = :roleName").setParameter("roleName", roleName).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
     
 }

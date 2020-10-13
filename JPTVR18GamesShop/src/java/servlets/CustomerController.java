@@ -26,7 +26,7 @@ import utilities.MakeHash;
  *
  * @author PC
  */
-@WebServlet(name = "CustomerController", urlPatterns =
+@WebServlet(name = "CustomerController", loadOnStartup = 1, urlPatterns =
     {"/createCustomer",
      "/showFormAddCustomer",
      "/showFormLogin",

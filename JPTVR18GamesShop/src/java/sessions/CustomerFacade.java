@@ -6,6 +6,8 @@
 package sessions;
 
 import entity.Customer;
+import entity.Game;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -30,7 +32,11 @@ public class CustomerFacade extends AbstractFacade<Customer> {
     }
 
     public Customer findByLogin(String login) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return (Customer) em.createQuery("SELECT c FROM Customer c WHERE c.login = :login").setParameter("login", login).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
     
 }

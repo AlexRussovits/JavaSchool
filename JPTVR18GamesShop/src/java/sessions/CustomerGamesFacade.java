@@ -31,7 +31,7 @@ public class CustomerGamesFacade extends AbstractFacade<CustomerGames> {
     }
 
     public void removeByGame(Game deleteGame) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       em.createQuery("DELETE FROM CustomerGames cg WHERE cg.game = :game").setParameter("game",deleteGame).executeUpdate();
     }
     
 }
