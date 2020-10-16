@@ -19,7 +19,7 @@
         <small id="emailHelp" class="form-text text-muted"></small>
     </div>
     <div class="form-group w-50 mx-auto">    
-      <a class="btn btn-primary" href="deleteResource?idResource=${game.id}">Удалить</a>
+      <a class="btn btn-primary" href="deleteResource?idGame=${game.id}">Удалить</a>
         <button type="submit" class="btn btn-primary">Изменить</button>
     </div>
 </form>

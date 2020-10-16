@@ -30,7 +30,7 @@
 
             <div class="form-group w-100 mx-auto">
                 <div class="col-sm-7">
-                    <a class="btn btn-primary btn-sm mr-1" href="deleteGame?id=${game.id}">Удалить</a>
+                    <a class="btn btn-primary btn-sm mr-1" href="deleteGame?idGame=${game.id}">Удалить</a>
                     <a class="btn btn-primary btn-sm" href="showEditGame?idGame=${game.id}">Редактировать</a>
                 </div>
             </div>
