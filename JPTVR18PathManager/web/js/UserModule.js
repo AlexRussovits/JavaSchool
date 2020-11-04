@@ -6,10 +6,8 @@
 
 class UserModule{
   addFormNewUser(){
-   if(id === "showFormAddUser") {
-       console.log(content);
-       content.innerHTML =
-          `<form action="createUser" method="POST">
+    document.getElementById("contentPage").innerHTML=
+          `<form action="createResource" method="POST">
                 <h3 class="w-100 text-center ">Регистрация пользователя</h3>
               <div class="form-group w-50 mx-auto">    
                   <label for="login">Логин</label>
@@ -28,8 +26,7 @@ class UserModule{
     document.getElementById("btnAddUser").addEventListener("click",function(e){
       e.preventDefault();
       userModule.createUser();
-        });
-    }
+    });
   }
   createUser(){
     let login = document.getElementById("login").value;
@@ -57,8 +54,9 @@ class UserModule{
               }else{
                 document.getElementById("info").innerHTML = 'Пользователь '+response.data.login +' добавлен';
                 document.getElementById("contentPage").innerHTML='';
-              }
-            }
+                
+                    }
+                }
             );
   }
 }

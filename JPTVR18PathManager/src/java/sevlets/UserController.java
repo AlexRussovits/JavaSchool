@@ -23,7 +23,7 @@ import session.UserRolesFacade;
 
 /**
  *
- * @author Melnikov
+ * @author pupil
  */
 @WebServlet(name = "UserController", loadOnStartup = 1 , urlPatterns = {
     "/showFormAddUser",
@@ -36,12 +36,14 @@ import session.UserRolesFacade;
 public class UserController extends HttpServlet {
     @EJB
     private UserFacade userFacade;
+    @EJB
     private RoleFacade roleFacade;
+    @EJB
     private UserRolesFacade userRolesFacade;
 
     @Override
     public void init() throws ServletException {
-        int countRoles  = roleFacade.count();
+        int countRoles  = this.roleFacade.count();
         if(countRoles > 0) return; 
             MakeHash mh = new MakeHash();
             String salts = mh.createSalts();

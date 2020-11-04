@@ -9,8 +9,10 @@ import entity.Resource;
 import entity.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.json.JsonReader;
@@ -20,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import json.builders.ResourceJsonBuilder;
 import json.builders.UserJsonBuilder;
 import session.ResourceFacade;
@@ -31,7 +34,8 @@ import utils.MakeHash;
  * @author pupil
  */
 @WebServlet(name = "ResourceController", urlPatterns = {"/createResourceJson",
-"/createUserJson"})
+"/createUserJson",
+"/getListResourceJson"})
 public class ResourceController extends HttpServlet {
     @EJB
     private ResourceFacade resourceFacade;
@@ -54,6 +58,7 @@ public class ResourceController extends HttpServlet {
         JsonReader jsonReader = Json.createReader(request.getReader());
         String path = request.getServletPath();
         JsonObjectBuilder job = Json.createObjectBuilder();
+        JsonArrayBuilder jab = Json.createArrayBuilder();
         String json = "";
         switch (path) {
             case "/createResourceJson":
@@ -100,7 +105,35 @@ public class ResourceController extends HttpServlet {
                 job.add("data", userJsonBuilder.createJsonUser(user));
                 json = job.build().toString();
                 break;
-            
+                
+            case "/getListResourceJson":
+                jsonObject = jsonReader.readObject();
+                String id = jsonObject.getString("id");
+                String JSESSIONID = jsonObject.getString("JSESSIONID");
+                HttpSession session = request.getSession(false);
+                if(!JSESSIONID.equals(session.getId())) {
+                    job.add("info", "Вам следует войти в аккаунт");
+                    json = job.build().toString();
+                    break;
+                }
+                user = (User) session.getAttribute("user");
+                if(user == null) {
+                    job.add("info", "Вам следует войти в аккаунт");
+                    json = job.build().toString();
+                    break;
+                }
+                if(id.equals(user.getId())) {
+                    job.add("info", "Вам следует войти в аккаунт");
+                    json = job.build().toString();
+                }
+                List<Resource> listResourcesForUser = resourceFacade.findByUser(user);
+                ResourceJsonBuilder rjb = new ResourceJsonBuilder();
+                for (int i = 0; i < listResourcesForUser.size(); i++) {
+                    resource = listResourcesForUser.get(i);
+                    jab.add(rjb.createJsonResource(resource));
+                }
+                json = job.add("listResources", jab.build()).build().toString();
+                break;
         }
         if(!"".equals(json)) {
             try(PrintWriter out = response.getWriter()) {

@@ -32,7 +32,8 @@ import utils.MakeHash;
  *
  * @author pupil
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/loginUserJson"
+@WebServlet(name = "LoginController", urlPatterns = {"/loginUserJson",
+    "/logoutUserJson"
 })
 public class LoginController extends HttpServlet {
     @EJB
@@ -53,53 +54,61 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
         request.setCharacterEncoding("UTF-8");
         JsonReader jsonReader = Json.createReader(request.getReader());
-        String path = request.getServletPath();
         JsonObjectBuilder job = Json.createObjectBuilder();
         String json = "";
+        String path = request.getServletPath();
         switch (path) {
             case "/loginUserJson":
                 JsonObject jsonObject = jsonReader.readObject();
                 String login = jsonObject.getString("login");
                 String password = jsonObject.getString("password");
-                if(login == null || login.isEmpty() ||
-                    password == null || password.isEmpty()) {
-                    job.add("info", "Нет такого пользователя или пароля");
+                if(login == null || login.isEmpty()
+                       || password == null || password.isEmpty()
+                                ){
+                    job.add("info", "Заполните все поля");
                     json = job.build().toString();
                     //json = "{\"info\":\"Заполните все поля\"}";
                     break;
                 }
                 User user = userFacade.findByLogin(login);
-                if(user == null) {
-                    job.add("info", "Нет такого пользователя или пароля");
-                    job.build().toString();
+                if(user == null){
+                    job.add("info", "Нет такого пользователя или неправильный пароль");
+                    json = job.build().toString();
                     break;
                 }
                 MakeHash mh = new MakeHash();
                 password = mh.createHash(password, user.getSalts());
-                if(!password.equals(user.getPassword())) {
-                    job.add("info", "Нет такого пользователя или пароля");
-                    job.build().toString();
+                if(!password.equals(user.getPassword())){
+                    job.add("info", "Нет такого пользователя или неправильный пароль");
+                    json = job.build().toString();
                     break;
                 }
                 HttpSession httpSession = request.getSession(true);
+                httpSession.setAttribute("user", user);
                 String JSESSIONID = httpSession.getId();
                 String roleUser = userRolesFacade.getTopRoleName(user);
-                
+                UserJsonBuilder ujb = new UserJsonBuilder();
+                job.add("data", ujb.createJsonUser(user, JSESSIONID, roleUser));
+                json = job.build().toString();
                 break;
-                
-            
+            case "/logoutUserJson":
+                httpSession = request.getSession(false);
+                if(httpSession != null){
+                    httpSession.invalidate();
+                    job.add("info", "Вы вышли");
+                    json = job.build().toString();
+                }
+                break;
         }
-        if(!"".equals(json)) {
-            try(PrintWriter out = response.getWriter()) {
+        if(!"".equals(json)){
+            try(PrintWriter out = response.getWriter()){
                 out.println(json);
                 out.flush();
             }
         }
-            
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
