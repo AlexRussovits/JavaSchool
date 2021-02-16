@@ -32,7 +32,10 @@ public class ProductFacade extends AbstractFacade<Product> {
     }
 
     public List<Product> findbyUser(User user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+        try {
+            return em.createQuery("SELECT up.product FROM UserProducts up WHERE up.user = :customer").setParameter("user", user).getResultList();
+        } catch (Exception e) {
+            return null;
+        }        
+    }  
 }

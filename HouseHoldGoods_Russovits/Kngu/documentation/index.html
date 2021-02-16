@@ -1,0 +1,396 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<head lang="en">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+     <title>Kngu - Flower HTML Bootstrap 5 Template</title>
+     
+     <!--====== Favicon Icon ======-->
+    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
+
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+    <link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <script type="text/javascript" src="assets/scripts/jquery.js"></script>
+    <script type="text/javascript" src="assets/scripts/jquery-ui.custom.min.js"></script>
+
+    <script type="text/javascript" src="assets/scripts/shCore.js"></script>
+    <script type="text/javascript" src="assets/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="assets/scripts/shBrushCss.js"></script>
+    <script type="text/javascript" src="assets/scripts/shBrushPhp.js"></script>
+    <script type="text/javascript" src="assets/scripts/shBrushXml.js"></script>
+    <link type="text/css" rel="stylesheet" href="assets/blueprint-css/shCoreDefault.css" />
+
+    <!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+    <script type="text/javascript">
+        SyntaxHighlighter.all();
+
+    </script>
+    <script type="text/javascript">
+        (function($) {
+            $(document).ready(function() {
+                // Cache selectors
+                var lastId,
+                    topMenu = $(".menu .alpha"),
+                    topMenuHeight = topMenu.outerHeight() + 15,
+                    // All list items
+                    menuItems = topMenu.find("a"),
+                    canUpdateURL = typeof history.pushState === "function" ? true : false,
+                    // Anchors corresponding to menu items
+                    scrollItems = menuItems.map(function() {
+                        var item = $($(this).attr("href"));
+                        if (item.length) {
+                            return item;
+                        }
+                    });
+
+                // Bind click handler to menu items
+                // so we can get a fancy scroll animation
+                menuItems.click(function(e) {
+                    var href = $(this).attr("href"),
+                        offsetTop = $(href).offset().top - topMenuHeight + 1;
+
+                    $('html, body').stop().animate({
+                        scrollTop: offsetTop
+                    }, 300);
+                    e.preventDefault();
+                });
+
+                // Bind to scroll
+                $(window).scroll(function() {
+                    // Get container scroll position
+                    var fromTop = $(this).scrollTop() + topMenuHeight;
+
+                    // Get id of current scroll item
+                    var cur = scrollItems.map(function() {
+                        if ($(this).offset().top < fromTop)
+                            return this;
+                    });
+                    // Get the id of the current element
+                    cur = cur[cur.length - 1];
+                    var id = cur && cur.length ? cur[0].id : "";
+
+                    if (lastId !== id) {
+                        lastId = id;
+                        // Set/remove active class
+                        menuItems
+                            .parents('li').removeClass("active").end()
+                            .filter("[href=#" + id + "]").parent('li').addClass("active")
+                            .parents('li').addClass('active');
+
+                        if (canUpdateURL) {
+                            history.pushState(null, null, window.location.href.split('#').shift() + '#' + id);
+                        } else {
+                            var $section = $('#' + id);
+
+                            $section.attr('id', '');
+                            window.location.hash = '#' + id;
+                            $section.attr('id', id);
+                        }
+                    }
+                });
+
+                hashname = window.location.hash.replace('#', '');
+
+                $('.menu li').removeClass('active');
+                $('.menu li a[href=#' + hashname + ']')
+                    .parent('li').addClass('active')
+                    .parents('li').addClass('active');
+
+                elem = $('#' + hashname);
+
+                if (hashname.length > 1) {
+                    $('body, html').animate({
+                        scrollTop: $(elem).offset().top - topMenuHeight - 315
+                    }, 500, 'easeInOutCubic');
+                };
+            })
+        })(jQuery);
+
+    </script>
+</head>
+
+
+<body>
+    <div class="docs-header-bg">
+        <div class="docs-header">
+
+            <div class="logo">
+                <img src="assets/images/logo.png" alt="logo.png">
+            </div>
+
+            <h1 class="center">Documentation</h1>
+
+            <p>Firstly, a huge thanks for purchasing this Template, your support is truly appreciated!
+
+                This document covers the installation and use of this Template and often reveals answers to common problems and issues - read this document thoroughly if you are experiencing any difficulties</p>
+
+            <p>If you have any questions that are beyond the scope of this document, feel free to open a support ticket</p>
+            
+            <p style="text-align: center">Created: 30/10/2020</p>
+
+            <div>
+                <a href="https://hasthemes.com/contact-us/" target="_blank" class="header-button">Support</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="menu">
+            <ol class="alpha">
+                <li><a href="#information">General Info</a>
+                <li><a href="#folder-struc">Folder Structure</a></li>
+                <li><a href="#font">Fonts</a></li>
+                <li><a href="#sourcefile ">Source File </a></li>
+                <li><a href="#Customization">Customization?</a></li>
+                <li><a href="#credits">Credits</a>
+                </li>
+            </ol>
+        </div>
+
+
+        <h3 id="information"><strong>Installing Template</strong> - <a href="#information">top</a></h3>
+
+        <p>1. After unzip the download pack, you'll found a Template Folder with all the files.</p>
+
+        <p>2. You can view this Template in any browser, you can display or edit the Template without an internet connection.</p>
+
+        <p>3. Now go to your cpanel or open your FTP Client (like Filezilla) and upload the content of the Template on your server root.</p>
+
+        <p>4. Once the files are done uploading go to www.yourdomainname.com/index.html</p>
+
+
+        <hr>
+
+        <div class="subitems">
+
+            <h3 id="folder-struc"><strong>HTML Folder Structure</strong> - <a href="#information">top</a></h3>
+            <p>HTML File</p>
+            <ul class="folder-struc html-folder">
+                <li class="file folder">assets</li>
+                <ul class="margin-left">
+                    <li class="file folder">css</li>
+                    <li class="file folder">fonts</li>
+                    <li class="file folder">images</li>
+                    <li class="file folder">js</li>
+                    <li class="file folder">scss</li>
+                </ul>
+                <li class="file page">index.html</li>
+                <li class="file page">about.html</li>
+                <li class="file page">shop-grid-3.html</li>
+                <li class="file page">shop-grid-4.html</li>
+                <li class="file page">shop-list.html</li>
+                <li class="file page">shop-grid-left-sidebar.html</li>
+                <li class="file page">shop-grid-right-sidebar.html</li>
+                <li class="file page">shop-list-left-sidebar.html</li>
+                <li class="file page">shop-list-right-sidebar.html</li>
+                <li class="file page">shop-single.html</li>
+                <li class="file page">shop-single-affiliate.html</li>
+                <li class="file page">shop-single-variable.html</li>
+                <li class="file page">shop-single-group.html</li>
+                <li class="file page">cart.html</li>
+                <li class="file page">wishlist.html</li>
+                <li class="file page">compare.html</li>
+                <li class="file page">checkout.html</li>
+                <li class="file page">empty-cart.html</li>
+                <li class="file page">my-account.html</li>
+                <li class="file page">login.html</li>
+                <li class="file page">register.html</li>
+                <li class="file page">blog.html</li>
+                <li class="file page">blog-left-sidebar.html</li>
+                <li class="file page">blog-right-sidebar.html</li>
+                <li class="file page">blog-single-left-sidebar.html</li>
+                <li class="file page">blog-single-right-sidebar.html</li>
+                <li class="file page">contact.html</li>
+                
+            </ul>
+
+            <hr>
+            
+            <h3 id="font"><strong>Fonts</strong> - <a href="#information">top</a></h3>
+            
+            <hr>
+            
+            <pre>
+            
+            
+    &lt;!-- Fonts --&gt;
+
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap');
+           
+            </pre>
+            
+            
+            
+            <h3 id="sourcefile"><strong>Source File (CSS)</strong> - <a href="#information">top</a></h3>
+            
+            <hr>
+            
+            <pre>
+            
+
+    &lt;!-- CSS
+    ============================================ --&gt;
+
+    &lt;!-- Bootstrap CSS --&gt;
+    &lt;link rel="stylesheet" href="assets/css/vendor/bootstrap.min.css"&gt;
+
+
+    &lt;!-- Icon Font CSS --&gt;
+    &lt;link rel="stylesheet" href="assets/css/vendor/plazaicon.css"&gt;
+    &lt;link rel="stylesheet" href="assets/css/vendor/themify-icons.css"&gt;
+    &lt;link rel="stylesheet" href="assets/css/vendor/font-awesome.min.css"&gt;
+
+
+    &lt;!-- Plugins CSS --&gt;
+    &lt;link rel="stylesheet" href="assets/css/plugins/animate.css"&gt;
+    &lt;link rel="stylesheet" href="assets/css/plugins/swiper-bundle.min.css"&gt;
+    &lt;link rel="stylesheet" href="assets/css/plugins/select2.min.css"&gt;
+    
+    &lt;!-- Helper CSS --&gt;
+    &lt;link rel="stylesheet" href="assets/css/helper.css"&gt;
+
+    &lt;!-- Main Style CSS --&gt;
+    &lt;link rel="stylesheet" href="assets/css/style.css"&gt;
+          
+           
+            </pre>            
+            
+            <h3 id="sourcefile"><strong>Source File (JS)</strong> - <a href="#information">top</a></h3>
+            
+            <hr>
+            
+            <pre>
+            
+    &lt;!-- JS
+    ============================================ --&gt;
+
+    &lt;!-- Modernizer js -->
+    &lt;script src="assets/js/vendor/modernizr-3.6.0.min.js"&gt;&lt;/script&gt;
+    &lt;!-- Jquery js -->
+    &lt;script src="assets/js/vendor/jquery-3.3.1.min.js"&gt;&lt;/script&gt;
+    &lt;!-- Bootstrap js -->
+    &lt;script src="assets/js/vendor/popper.min.js"&gt;&lt;/script&gt;
+    &lt;script src="assets/js/vendor/bootstrap.min.js"&gt;&lt;/script&gt;
+    
+    &lt;!-- All Plugins js -->
+    &lt;script src="assets/js/plugins/swiper-bundle.min.js"&gt;&lt;/script&gt;
+    &lt;script src="assets/js/plugins/jquery.countdown.min.js"&gt;&lt;/script&gt;
+    &lt;script src="assets/js/plugins/jquery.elevateZoom.min.js"&gt;&lt;/script&gt;
+    &lt;script src="assets/js/plugins/select2.min.js"&gt;&lt;/script&gt;
+    &lt;script src="assets/js/plugins/ajax-contact.js"&gt;&lt;/script&gt;
+
+    &lt;!-- Main Activation js --&gt;
+    &lt;script src="assets/js/main.js"&gt;&lt;/script&gt;
+
+
+    &lt;!-- Main Activation js --&gt;
+    &lt;script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQ5y0EF8dE6qwc03FcbXHJfXr4vEa7z54"&gt;&lt;/script&gt;
+    &lt;script src="assets/js/map-script.js"&gt;&lt;/script&gt;
+           
+            </pre>
+
+            <!--      Section       -->
+
+            <h3 id="Customization"><strong>Customization?</strong> - <a href="#information">top</a></h3>
+
+
+            <h4 id="#edittext">Changing the logo</h4>
+            <p>Insert logo image source in index.html line in 69</p>
+            <img src="assets/images/logo-change.png" />
+            <br /><br />
+
+            <h4 id="#edittext">Changing the Copyright</h4>
+            <p>Insert logo image source in index.html line in 3046</p>
+            <img src="assets/images/copyright.png" />
+            <br /><br />
+
+            <h4 id="#edittext">Changing the Email</h4>
+            <p>Insert logo image source in contact.php line in 22</p>
+            <img src="assets/images/email-change.png" />
+            <br /><br />
+
+            <h6 id="#edittext">Changing Font Family</h6>
+            <p>To change the font-family you have to change the current font-family property with your own font-family (from style.css file) and required weight. But, make sure you have already included the font on header (using CSS link) or on CSS (using import). </p>
+            
+            <pre>
+               
+    body {
+        font-family: "Rubik", sans-serif;
+    }
+
+    h1,
+    h2, 
+    h3, 
+    h4, 
+    h5,
+    h6 {
+        font-family: "Lora", serif;
+    }
+                
+            </pre>
+
+            <hr>
+
+            <!-- Credits -->
+            <h3 id="credits"><strong>Sources and Credits</strong> - <a href="#information">top</a></h3>
+
+            <div class="narrow-p">
+
+                <p><strong>Free fonts:</strong></p>
+
+                <ul>
+                    <li><a href="https://fonts.google.com/specimen/Rubik" target="_blank"> Rubik </a></li>
+                    <li><a href="https://fonts.google.com/specimen/Lora" target="_blank"> Lora </a></li>
+                </ul>
+
+                <hr class="space">
+
+                <p><strong>Icons:</strong></p>
+
+                <ul>
+                    <li><a href="https://fontawesome.com/v4.7.0/icons/#new" target="_blank">Font Awesome 4</a> (Icons)</li>
+                    <li><a href="https://themify.me/themify-icons" target="_blank">Themify</a> (Icons)</li>
+                </ul>
+
+                <hr class="space">
+                <p><strong>Plugin:</strong></p>
+
+                <ul>
+                    <li><a href="v5.getbootstrap.com" target="_blank">Bootstrap 5</a></li>
+                    <li><a href="swiperjs.com" target="_blank">Swiper js</a></li>
+                    <li><a href="http://hilios.github.io/jQuery.countdown/examples.html" target="_blank">Countdown</a></li>
+                    <li><a href="https://github.com/elevateweb/elevatezoom" target="_blank">Elevate Zoom</a></li>
+                    <li><a href="https://select2.org/" target="_blank">select2</a></li>
+                    <li><a href="https://animate.style/" target="_blank">Animate css</a></li>
+                </ul>
+
+                <hr class="space">
+
+
+
+
+
+                <hr class="space">
+
+                <p>All images have been used for demonstration purposes only and are not included in the template.</p>
+
+                <hr class="space">
+
+                <!-- Credits -->
+
+                <hr class="space">
+
+            </div>
+
+
+        </div>
+        <!-- end div .container -->
+
+</body>
+
+</html>

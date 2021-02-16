@@ -30,7 +30,11 @@ public class UserFacade extends AbstractFacade<User> {
     }
 
     public User findbyLogin(String login) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            return (User) em.createQuery("SELECT u FROM User u WHERE u.login = :login").setParameter("login", login).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
     
 }

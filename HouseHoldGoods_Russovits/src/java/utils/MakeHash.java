@@ -11,13 +11,17 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.logging.Level;
 import org.jboss.logging.Logger;
-import sun.util.logging.PlatformLogger;
 
 /**
  *
  * @author pupil
  */
 public class MakeHash {
+
+    public MakeHash() {
+    }
+    
+
     public String createHash(String password, String salts) {
         password = salts + password;
         MessageDigest m;
@@ -26,12 +30,11 @@ public class MakeHash {
             m.update(password.getBytes(),0,password.length());
             return new BigInteger(1,m.digest()).toString(16);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(MakeHash.class.getName()).log(Level.SEVERE, "Нет поддержки алгоритма шифрования", ex);
+            /*Logger.getLogger(MakeHash.class.getName()).log(Level.SEVERE, "Нет поддержки алгоритма шифрования", ex);*/
             return null;
         }
     }
-    
-        public String createSalts() {
+    public String createSalts(){
         Date date = new Date();
         String s = Long.toString(date.getTime());
         MessageDigest m;
@@ -40,8 +43,10 @@ public class MakeHash {
             m.update(s.getBytes(),0,s.length());
             return new BigInteger(1,m.digest()).toString(16);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(MakeHash.class.getName()).log(Level.SEVERE, "Нет поддержки алгоритма шифрования", ex);
-            return null;            
-        }           
+            /*Logger.getLogger(MakeHash.class.getName()).log(Level.SEVERE, "Нет поддержки алгоритма шифрования", ex);*/
+            return null;
+        }
+        
     }
+    
 }

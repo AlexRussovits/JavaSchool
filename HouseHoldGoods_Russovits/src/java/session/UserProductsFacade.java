@@ -31,7 +31,7 @@ public class UserProductsFacade extends AbstractFacade<UserProducts> {
     }
 
     public void removeByProduct(Product deleteProduct) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        em.createQuery("DELETE FROM UserProducts up WHERE up.product = :product").setParameter("product", deleteProduct).executeUpdate();
     }
     
 }
