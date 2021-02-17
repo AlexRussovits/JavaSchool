@@ -14,8 +14,8 @@
             <display-name>template1</display-name>
             <url-pattern>/*</url-pattern>
             <page-encoding>UTF-8</page-encoding>
-            <include-prelude>/WEB-INF/jspf/header.jspf</include-prelude>
-            <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
+            <include-prelude>/WEB-INF/jspf/header.html</include-prelude>
+            <include-coda>/WEB-INF/jspf/footer.html</include-coda>
         </jsp-property-group>
         <jsp-property-group>
             <display-name>template2</display-name>
